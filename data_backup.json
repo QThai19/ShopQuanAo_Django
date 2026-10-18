@@ -1,0 +1,971 @@
+[
+{
+  "model": "store.category",
+  "pk": 1,
+  "fields": {
+    "name": "Đầm/Váy",
+    "slug": "dam-vay",
+    "icon": "👗",
+    "order": 1
+  }
+},
+{
+  "model": "store.category",
+  "pk": 2,
+  "fields": {
+    "name": "Áo kiểu",
+    "slug": "ao-kieu",
+    "icon": "👚",
+    "order": 2
+  }
+},
+{
+  "model": "store.category",
+  "pk": 3,
+  "fields": {
+    "name": "Đồ bộ",
+    "slug": "do-bo",
+    "icon": "🧥",
+    "order": 3
+  }
+},
+{
+  "model": "store.category",
+  "pk": 4,
+  "fields": {
+    "name": "Vest/Blazer",
+    "slug": "vest",
+    "icon": "🥻",
+    "order": 4
+  }
+},
+{
+  "model": "store.product",
+  "pk": "3f7d7c94-cd0f-4fdf-a32a-83bb2053ccd4",
+  "fields": {
+    "category": 3,
+    "name": "Bộ Lụa Tơ Tằm In Hoa Nhỏ Dịu Dàng",
+    "slug": "bo-lua-to-tam-in-hoa-nho-diu-dang",
+    "description": "Bộ đồ lụa tơ tằm in hoa nhỏ tinh tế, mềm mại và thoáng mát. Dáng suông thoải mái, phù hợp mặc hàng ngày và đi chơi cuối tuần.",
+    "fabric": "lua",
+    "price": "750000",
+    "sale_price": null,
+    "is_new": true,
+    "is_featured": false,
+    "is_active": true,
+    "created_at": "2026-10-18T07:23:13.125Z",
+    "updated_at": "2026-10-18T07:23:13.125Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": "4315fe62-9471-48d2-b6d6-b59a55fb0b19",
+  "fields": {
+    "category": 4,
+    "name": "Vest Linen Dáng Dài Phong Cách Tây",
+    "slug": "vest-linen-dang-dai-phong-cach-tay",
+    "description": "Vest linen dáng dài phong cách tây lịch lãm. Chất liệu linen cao cấp, thoáng mát. Phù hợp đi làm, họp hành, tiệc tùng sang trọng.",
+    "fabric": "cotton",
+    "price": "890000",
+    "sale_price": "720000",
+    "is_new": true,
+    "is_featured": true,
+    "is_active": true,
+    "created_at": "2026-10-18T07:23:13.977Z",
+    "updated_at": "2026-10-18T07:23:13.977Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": "43c155dd-88de-44c6-898b-ce5d6a5b14f8",
+  "fields": {
+    "category": 4,
+    "name": "Áo Khoác Len Mịn Cúc Bọc Vải",
+    "slug": "ao-khoac-len-min-cuc-boc-vai",
+    "description": "Áo khoác len mịn với cúc bọc vải tinh tế. Giữ ấm hiệu quả, kiểu dáng thanh lịch. Có túi trong tiện lợi.",
+    "fabric": "len",
+    "price": "650000",
+    "sale_price": null,
+    "is_new": true,
+    "is_featured": false,
+    "is_active": true,
+    "created_at": "2026-10-18T07:23:14.235Z",
+    "updated_at": "2026-10-18T07:23:14.235Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": "5874469a-dec5-45d7-8378-6a7da411b716",
+  "fields": {
+    "category": 1,
+    "name": "Đầm Nhung Tuyết Đen Dự Tiệc",
+    "slug": "dam-nhung-tuyet-den-du-tiec",
+    "description": "Đầm nhung tuyết đen sang trọng, phù hợp dự tiệc, khai trương, sự kiện quan trọng. Chất liệu nhung mịn, không nhăn, giữ phom tốt suốt cả ngày.",
+    "fabric": "nhung",
+    "price": "780000",
+    "sale_price": "620000",
+    "is_new": false,
+    "is_featured": true,
+    "is_active": true,
+    "created_at": "2026-10-18T07:23:11.053Z",
+    "updated_at": "2026-10-18T07:23:11.053Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": "5bff820d-c4c3-4b33-8be2-e0f607e3d000",
+  "fields": {
+    "category": 3,
+    "name": "Bộ Cotton Cao Cấp Thể Thao Nhẹ Nhàng",
+    "slug": "bo-cotton-cao-cap-the-thao-nhe-nhang",
+    "description": "Bộ đồ cotton cao cấp nhẹ nhàng, phong cách thể thao thoải mái. Thích hợp mặc tập thể dục buổi sáng, yoga, hoặc dạo phố.",
+    "fabric": "cotton",
+    "price": "420000",
+    "sale_price": "350000",
+    "is_new": false,
+    "is_featured": false,
+    "is_active": true,
+    "created_at": "2026-10-18T07:23:13.332Z",
+    "updated_at": "2026-10-18T07:23:13.332Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": "9fd46f29-7db6-4931-88e6-e79052a02eee",
+  "fields": {
+    "category": 1,
+    "name": "Đầm Lụa Tơ Tằm Hoa Nhỏ Thanh Lịch",
+    "slug": "dam-lua-to-tam-hoa-nho-thanh-lich",
+    "description": "Đầm lụa tơ tằm thiên nhiên 100%, họa tiết hoa nhỏ tinh tế. Kiểu dáng A-line tôn dáng, cổ V thanh lịch. Phù hợp đi chơi, dự tiệc, họp mặt gia đình.",
+    "fabric": "lua",
+    "price": "650000",
+    "sale_price": "520000",
+    "is_new": true,
+    "is_featured": true,
+    "is_active": true,
+    "created_at": "2026-10-18T07:23:10.226Z",
+    "updated_at": "2026-10-18T07:23:10.226Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": "a3824aaa-b7c2-4321-852c-9f2340d03cc8",
+  "fields": {
+    "category": 2,
+    "name": "Áo Đũi Thả Rộng Phong Cách Vintage",
+    "slug": "ao-dui-tha-rong-phong-cach-vintage",
+    "description": "Áo đũi thả rộng, dáng suông thoải mái. Phong cách vintage độc đáo, dễ phối cùng quần ống suông hoặc chân váy. Mặc được 4 mùa.",
+    "fabric": "dui",
+    "price": "320000",
+    "sale_price": "270000",
+    "is_new": true,
+    "is_featured": true,
+    "is_active": true,
+    "created_at": "2026-10-18T07:23:11.812Z",
+    "updated_at": "2026-10-18T07:23:11.812Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": "ae17e230-d351-499b-a523-627b0ee0d444",
+  "fields": {
+    "category": 2,
+    "name": "Áo Lụa Cổ Trụ Nút Bạc Sang Trọng",
+    "slug": "ao-lua-co-tru-nut-bac-sang-trong",
+    "description": "Áo lụa tơ tằm cổ trụ với hàng nút bạc tinh xảo. Thiết kế thanh lịch, phù hợp môi trường văn phòng và sự kiện trang trọng.",
+    "fabric": "lua",
+    "price": "420000",
+    "sale_price": "360000",
+    "is_new": false,
+    "is_featured": false,
+    "is_active": true,
+    "created_at": "2026-10-18T07:23:12.137Z",
+    "updated_at": "2026-10-18T07:23:12.137Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": "b3dbb49d-fd9e-4faa-bf23-18950e976d6e",
+  "fields": {
+    "category": 2,
+    "name": "Áo Kiểu Kate Thái Thêu Hoa",
+    "slug": "ao-kieu-kate-thai-theu-hoa",
+    "description": "Áo kiểu Kate Thái thêu hoa sống động, màu sắc tươi tắn. Tay lỡ tinh tế, cổ tròn nhẹ nhàng. Phù hợp mặc dạo phố, đi chơi cuối tuần.",
+    "fabric": "kate",
+    "price": "350000",
+    "sale_price": null,
+    "is_new": true,
+    "is_featured": false,
+    "is_active": true,
+    "created_at": "2026-10-18T07:23:11.440Z",
+    "updated_at": "2026-10-18T07:23:11.440Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": "ecec5b93-7e9d-4c96-8a0b-14b7647ebdef",
+  "fields": {
+    "category": 3,
+    "name": "Bộ Đũi Thêu Hoa Cổ Truyền Cao Cấp",
+    "slug": "bo-dui-theu-hoa-co-truyen-cao-cap",
+    "description": "Bộ đồ đũi thêu hoa cổ truyền tinh tế. Gồm áo và quần, chất liệu đũi mềm mát, thêu tay tinh xảo. Set đồ sang trọng phù hợp mặc ở nhà hay đi chơi.",
+    "fabric": "dui",
+    "price": "680000",
+    "sale_price": "540000",
+    "is_new": true,
+    "is_featured": true,
+    "is_active": true,
+    "created_at": "2026-10-18T07:23:12.862Z",
+    "updated_at": "2026-10-18T07:23:12.862Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": "f0851f4a-4e65-4e62-946c-218337432c5d",
+  "fields": {
+    "category": 1,
+    "name": "Đầm Phi Bóng Cổ Sen Nữ Quý Phái",
+    "slug": "dam-phi-bong-co-sen-nu-quy-phai",
+    "description": "Đầm phi bóng cao cấp, bóng mịn, rủ đẹp. Cổ sen thanh lịch, tay ngắn thoáng mát. Thiết kế ôm vừa vặn, tôn vóc dáng người phụ nữ trung niên.",
+    "fabric": "phi_bong",
+    "price": "590000",
+    "sale_price": "470000",
+    "is_new": true,
+    "is_featured": false,
+    "is_active": true,
+    "created_at": "2026-10-18T07:23:10.723Z",
+    "updated_at": "2026-10-18T07:23:10.723Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": "f8ac1afc-b93b-4a26-a0f0-0c5e7e603993",
+  "fields": {
+    "category": 1,
+    "name": "Váy Đũi Tự Nhiên Cổ Tròn Vintage",
+    "slug": "vay-dui-tu-nhien-co-tron-vintage",
+    "description": "Váy vải đũi tự nhiên, mềm mại, thoáng mát. Kiểu dáng vintage duyên dáng, màu sắc trung tính dễ phối đồ. Có túi hai bên tiện dụng.",
+    "fabric": "dui",
+    "price": "480000",
+    "sale_price": null,
+    "is_new": true,
+    "is_featured": true,
+    "is_active": true,
+    "created_at": "2026-10-18T07:23:10.573Z",
+    "updated_at": "2026-10-18T07:23:10.573Z"
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 1,
+  "fields": {
+    "product": "9fd46f29-7db6-4931-88e6-e79052a02eee",
+    "size": "M",
+    "weight_hint": "44-50kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 2,
+  "fields": {
+    "product": "9fd46f29-7db6-4931-88e6-e79052a02eee",
+    "size": "L",
+    "weight_hint": "50-56kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 3,
+  "fields": {
+    "product": "9fd46f29-7db6-4931-88e6-e79052a02eee",
+    "size": "XL",
+    "weight_hint": "56-62kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 4,
+  "fields": {
+    "product": "9fd46f29-7db6-4931-88e6-e79052a02eee",
+    "size": "2XL",
+    "weight_hint": "62-70kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 5,
+  "fields": {
+    "product": "f8ac1afc-b93b-4a26-a0f0-0c5e7e603993",
+    "size": "M",
+    "weight_hint": "44-50kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 6,
+  "fields": {
+    "product": "f8ac1afc-b93b-4a26-a0f0-0c5e7e603993",
+    "size": "L",
+    "weight_hint": "50-56kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 7,
+  "fields": {
+    "product": "f8ac1afc-b93b-4a26-a0f0-0c5e7e603993",
+    "size": "XL",
+    "weight_hint": "56-62kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 8,
+  "fields": {
+    "product": "f8ac1afc-b93b-4a26-a0f0-0c5e7e603993",
+    "size": "2XL",
+    "weight_hint": "62-70kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 9,
+  "fields": {
+    "product": "f8ac1afc-b93b-4a26-a0f0-0c5e7e603993",
+    "size": "3XL",
+    "weight_hint": "70-78kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 10,
+  "fields": {
+    "product": "f0851f4a-4e65-4e62-946c-218337432c5d",
+    "size": "L",
+    "weight_hint": "50-56kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 11,
+  "fields": {
+    "product": "f0851f4a-4e65-4e62-946c-218337432c5d",
+    "size": "XL",
+    "weight_hint": "56-62kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 12,
+  "fields": {
+    "product": "f0851f4a-4e65-4e62-946c-218337432c5d",
+    "size": "2XL",
+    "weight_hint": "62-70kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 13,
+  "fields": {
+    "product": "f0851f4a-4e65-4e62-946c-218337432c5d",
+    "size": "3XL",
+    "weight_hint": "70-78kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 14,
+  "fields": {
+    "product": "5874469a-dec5-45d7-8378-6a7da411b716",
+    "size": "M",
+    "weight_hint": "44-50kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 15,
+  "fields": {
+    "product": "5874469a-dec5-45d7-8378-6a7da411b716",
+    "size": "L",
+    "weight_hint": "50-56kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 16,
+  "fields": {
+    "product": "5874469a-dec5-45d7-8378-6a7da411b716",
+    "size": "XL",
+    "weight_hint": "56-62kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 17,
+  "fields": {
+    "product": "5874469a-dec5-45d7-8378-6a7da411b716",
+    "size": "2XL",
+    "weight_hint": "62-70kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 18,
+  "fields": {
+    "product": "b3dbb49d-fd9e-4faa-bf23-18950e976d6e",
+    "size": "M",
+    "weight_hint": "44-50kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 19,
+  "fields": {
+    "product": "b3dbb49d-fd9e-4faa-bf23-18950e976d6e",
+    "size": "L",
+    "weight_hint": "50-56kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 20,
+  "fields": {
+    "product": "b3dbb49d-fd9e-4faa-bf23-18950e976d6e",
+    "size": "XL",
+    "weight_hint": "56-62kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 21,
+  "fields": {
+    "product": "b3dbb49d-fd9e-4faa-bf23-18950e976d6e",
+    "size": "2XL",
+    "weight_hint": "62-70kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 22,
+  "fields": {
+    "product": "b3dbb49d-fd9e-4faa-bf23-18950e976d6e",
+    "size": "3XL",
+    "weight_hint": "70-78kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 23,
+  "fields": {
+    "product": "a3824aaa-b7c2-4321-852c-9f2340d03cc8",
+    "size": "M",
+    "weight_hint": "44-52kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 24,
+  "fields": {
+    "product": "a3824aaa-b7c2-4321-852c-9f2340d03cc8",
+    "size": "L",
+    "weight_hint": "52-60kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 25,
+  "fields": {
+    "product": "a3824aaa-b7c2-4321-852c-9f2340d03cc8",
+    "size": "XL",
+    "weight_hint": "60-68kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 26,
+  "fields": {
+    "product": "a3824aaa-b7c2-4321-852c-9f2340d03cc8",
+    "size": "2XL",
+    "weight_hint": "68-75kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 27,
+  "fields": {
+    "product": "ae17e230-d351-499b-a523-627b0ee0d444",
+    "size": "M",
+    "weight_hint": "44-50kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 28,
+  "fields": {
+    "product": "ae17e230-d351-499b-a523-627b0ee0d444",
+    "size": "L",
+    "weight_hint": "50-56kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 29,
+  "fields": {
+    "product": "ae17e230-d351-499b-a523-627b0ee0d444",
+    "size": "XL",
+    "weight_hint": "56-62kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 30,
+  "fields": {
+    "product": "ae17e230-d351-499b-a523-627b0ee0d444",
+    "size": "2XL",
+    "weight_hint": "62-70kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 31,
+  "fields": {
+    "product": "ecec5b93-7e9d-4c96-8a0b-14b7647ebdef",
+    "size": "M",
+    "weight_hint": "44-50kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 32,
+  "fields": {
+    "product": "ecec5b93-7e9d-4c96-8a0b-14b7647ebdef",
+    "size": "L",
+    "weight_hint": "50-56kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 33,
+  "fields": {
+    "product": "ecec5b93-7e9d-4c96-8a0b-14b7647ebdef",
+    "size": "XL",
+    "weight_hint": "56-62kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 34,
+  "fields": {
+    "product": "ecec5b93-7e9d-4c96-8a0b-14b7647ebdef",
+    "size": "2XL",
+    "weight_hint": "62-70kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 35,
+  "fields": {
+    "product": "ecec5b93-7e9d-4c96-8a0b-14b7647ebdef",
+    "size": "3XL",
+    "weight_hint": "70-78kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 36,
+  "fields": {
+    "product": "3f7d7c94-cd0f-4fdf-a32a-83bb2053ccd4",
+    "size": "M",
+    "weight_hint": "44-50kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 37,
+  "fields": {
+    "product": "3f7d7c94-cd0f-4fdf-a32a-83bb2053ccd4",
+    "size": "L",
+    "weight_hint": "50-56kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 38,
+  "fields": {
+    "product": "3f7d7c94-cd0f-4fdf-a32a-83bb2053ccd4",
+    "size": "XL",
+    "weight_hint": "56-62kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 39,
+  "fields": {
+    "product": "3f7d7c94-cd0f-4fdf-a32a-83bb2053ccd4",
+    "size": "2XL",
+    "weight_hint": "62-70kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 40,
+  "fields": {
+    "product": "5bff820d-c4c3-4b33-8be2-e0f607e3d000",
+    "size": "M",
+    "weight_hint": "44-50kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 41,
+  "fields": {
+    "product": "5bff820d-c4c3-4b33-8be2-e0f607e3d000",
+    "size": "L",
+    "weight_hint": "50-56kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 42,
+  "fields": {
+    "product": "5bff820d-c4c3-4b33-8be2-e0f607e3d000",
+    "size": "XL",
+    "weight_hint": "56-62kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 43,
+  "fields": {
+    "product": "5bff820d-c4c3-4b33-8be2-e0f607e3d000",
+    "size": "2XL",
+    "weight_hint": "62-70kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 44,
+  "fields": {
+    "product": "5bff820d-c4c3-4b33-8be2-e0f607e3d000",
+    "size": "3XL",
+    "weight_hint": "70-78kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 45,
+  "fields": {
+    "product": "4315fe62-9471-48d2-b6d6-b59a55fb0b19",
+    "size": "M",
+    "weight_hint": "44-50kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 46,
+  "fields": {
+    "product": "4315fe62-9471-48d2-b6d6-b59a55fb0b19",
+    "size": "L",
+    "weight_hint": "50-56kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 47,
+  "fields": {
+    "product": "4315fe62-9471-48d2-b6d6-b59a55fb0b19",
+    "size": "XL",
+    "weight_hint": "56-62kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 48,
+  "fields": {
+    "product": "4315fe62-9471-48d2-b6d6-b59a55fb0b19",
+    "size": "2XL",
+    "weight_hint": "62-70kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 49,
+  "fields": {
+    "product": "43c155dd-88de-44c6-898b-ce5d6a5b14f8",
+    "size": "M",
+    "weight_hint": "44-50kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 50,
+  "fields": {
+    "product": "43c155dd-88de-44c6-898b-ce5d6a5b14f8",
+    "size": "L",
+    "weight_hint": "50-56kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 51,
+  "fields": {
+    "product": "43c155dd-88de-44c6-898b-ce5d6a5b14f8",
+    "size": "XL",
+    "weight_hint": "56-62kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productsize",
+  "pk": 52,
+  "fields": {
+    "product": "43c155dd-88de-44c6-898b-ce5d6a5b14f8",
+    "size": "2XL",
+    "weight_hint": "62-70kg",
+    "is_available": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 1,
+  "fields": {
+    "product": "9fd46f29-7db6-4931-88e6-e79052a02eee",
+    "image": "products/dam-lua-to-tam-hoa-nho-thanh-lich.jpg",
+    "alt_text": "Dam Lua To Tam Hoa Nho Thanh Lich",
+    "is_main": true,
+    "order": 0
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 2,
+  "fields": {
+    "product": "f8ac1afc-b93b-4a26-a0f0-0c5e7e603993",
+    "image": "products/vay-dui-tu-nhien-co-tron-vintage.jpg",
+    "alt_text": "Vay Dui Tu Nhien Co Tron Vintage",
+    "is_main": true,
+    "order": 0
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 3,
+  "fields": {
+    "product": "f0851f4a-4e65-4e62-946c-218337432c5d",
+    "image": "products/dam-phi-bong-co-sen-nu-quy-phai.jpg",
+    "alt_text": "Dam Phi Bong Co Sen Nu Quy Phai",
+    "is_main": true,
+    "order": 0
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 4,
+  "fields": {
+    "product": "5874469a-dec5-45d7-8378-6a7da411b716",
+    "image": "products/dam-nhung-tuyet-den-du-tiec.jpg",
+    "alt_text": "Dam Nhung Tuyet Den Du Tiec",
+    "is_main": true,
+    "order": 0
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 5,
+  "fields": {
+    "product": "b3dbb49d-fd9e-4faa-bf23-18950e976d6e",
+    "image": "products/ao-kieu-kate-thai-theu-hoa.jpg",
+    "alt_text": "Ao Kieu Kate Thai Theu Hoa",
+    "is_main": true,
+    "order": 0
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 6,
+  "fields": {
+    "product": "a3824aaa-b7c2-4321-852c-9f2340d03cc8",
+    "image": "products/ao-dui-tha-rong-phong-cach-vintage.jpg",
+    "alt_text": "Ao Dui Tha Rong Phong Cach Vintage",
+    "is_main": true,
+    "order": 0
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 7,
+  "fields": {
+    "product": "ecec5b93-7e9d-4c96-8a0b-14b7647ebdef",
+    "image": "products/bo-dui-theu-hoa-co-truyen-cao-cap.jpg",
+    "alt_text": "Bo Dui Theu Hoa Co Truyen Cao Cap",
+    "is_main": true,
+    "order": 0
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 8,
+  "fields": {
+    "product": "3f7d7c94-cd0f-4fdf-a32a-83bb2053ccd4",
+    "image": "products/bo-lua-to-tam-in-hoa-nho-diu-dang.jpg",
+    "alt_text": "Bo Lua To Tam In Hoa Nho Diu Dang",
+    "is_main": true,
+    "order": 0
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 9,
+  "fields": {
+    "product": "4315fe62-9471-48d2-b6d6-b59a55fb0b19",
+    "image": "products/vest-linen-dang-dai-phong-cach-tay.jpg",
+    "alt_text": "Vest Linen Dang Dai Phong Cach Tay",
+    "is_main": true,
+    "order": 0
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 10,
+  "fields": {
+    "product": "43c155dd-88de-44c6-898b-ce5d6a5b14f8",
+    "image": "products/ao-khoac-len-min-cuc-boc-vai.jpg",
+    "alt_text": "Ao Khoac Len Min Cuc Boc Vai",
+    "is_main": true,
+    "order": 0
+  }
+},
+{
+  "model": "store.order",
+  "pk": 1,
+  "fields": {
+    "product": "43c155dd-88de-44c6-898b-ce5d6a5b14f8",
+    "size": "XL",
+    "customer_name": "Nguyễn Thị Mai",
+    "customer_phone": "0912345678",
+    "customer_address": "123 Lê Lợi, Q.1, TP.HCM",
+    "note": "Giao giờ hành chính",
+    "status": "pending",
+    "created_at": "2026-10-18T08:03:20.848Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 2,
+  "fields": {
+    "product": "4315fe62-9471-48d2-b6d6-b59a55fb0b19",
+    "size": "2XL",
+    "customer_name": "Trần Thị Hoa",
+    "customer_phone": "0988776655",
+    "customer_address": "45 Hoàng Hoa Thám, Ba Đình, Hà Nội",
+    "note": "",
+    "status": "pending",
+    "created_at": "2026-10-18T08:09:50.344Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 3,
+  "fields": {
+    "product": "5bff820d-c4c3-4b33-8be2-e0f607e3d000",
+    "size": "XL",
+    "customer_name": "Lê Thị Bích",
+    "customer_phone": "0912987654",
+    "customer_address": "88 Lê Duẩn, Hải Châu, Đà Nẵng",
+    "note": "",
+    "status": "confirmed",
+    "created_at": "2026-10-18T08:09:50.383Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 4,
+  "fields": {
+    "product": "3f7d7c94-cd0f-4fdf-a32a-83bb2053ccd4",
+    "size": "L",
+    "customer_name": "Phạm Thị Thảo",
+    "customer_phone": "0903112233",
+    "customer_address": "120 Trần Hưng Đạo, Q.1, TP.HCM",
+    "note": "",
+    "status": "shipping",
+    "created_at": "2026-10-18T08:09:50.389Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 5,
+  "fields": {
+    "product": "ecec5b93-7e9d-4c96-8a0b-14b7647ebdef",
+    "size": "3XL",
+    "customer_name": "Vũ Thị Lan",
+    "customer_phone": "0977445566",
+    "customer_address": "15 Quang Trung, Nha Trang, Khánh Hòa",
+    "note": "",
+    "status": "delivered",
+    "created_at": "2026-10-18T08:09:50.400Z"
+  }
+},
+{
+  "model": "store.shopsetting",
+  "pk": 1,
+  "fields": {
+    "shop_name": "Shop Hồng Loan",
+    "hotline": "0866191976",
+    "zalo_phone": "0866191976",
+    "address": "Chợ Cổ Cò, Cái Bè, Đồng Tháp",
+    "open_hours": "8:00 - 20:00 (Thứ 2 - Chủ nhật)",
+    "facebook_url": "https://facebook.com",
+    "banner_text": "Giao hàng tận nơi toàn quốc · Đổi trả trong 7 ngày"
+  }
+}
+]
