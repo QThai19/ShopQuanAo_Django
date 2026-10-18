@@ -55,11 +55,13 @@
                  @click="openLightbox(currentImageIndex)">
                 {% if images %}
                     {% for img in images %}
+                    {% if img.safe_url %}
                     <img x-show="currentImageIndex === {{ forloop.counter0 }}"
-                         src="{{ img.image.url }}"
+                         src="{{ img.safe_url }}"
                          alt="{{ img.alt_text|default:product.name }}"
                          class="w-full h-full object-cover"
                          id="main-image-{{ forloop.counter0 }}">
+                    {% endif %}
                     {% endfor %}
                 {% else %}
                 <div class="w-full h-full bg-gradient-to-br from-cream-dark to-cream flex flex-col items-center justify-center text-charcoal/30">
@@ -87,11 +89,13 @@
             {% if images.count > 1 %}
             <div class="flex gap-2 overflow-x-auto pb-2">
                 {% for img in images %}
+                {% if img.safe_url %}
                 <button @click="currentImageIndex = {{ forloop.counter0 }}"
                         :class="currentImageIndex === {{ forloop.counter0 }} ? 'ring-2 ring-gold ring-offset-1' : 'ring-1 ring-charcoal/10 hover:ring-gold/50'"
                         class="flex-shrink-0 w-16 h-20 md:w-20 md:h-28 rounded-lg overflow-hidden transition-all">
-                    <img src="{{ img.image.url }}" alt="{{ img.alt_text|default:product.name }}" class="w-full h-full object-cover">
+                    <img src="{{ img.safe_url }}" alt="{{ img.alt_text|default:product.name }}" class="w-full h-full object-cover">
                 </button>
+                {% endif %}
                 {% endfor %}
             </div>
             {% endif %}

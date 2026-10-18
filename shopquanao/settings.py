@@ -129,6 +129,7 @@ JAZZMIN_SETTINGS = {
         {"name": "Trang chủ Shop ↗", "url": "/", "new_window": True},
         {"model": "store.Order"},
         {"model": "store.Product"},
+        {"model": "store.Category"},
         {"model": "store.ShopSetting"},
     ],
 
