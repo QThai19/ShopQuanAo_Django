@@ -14,10 +14,10 @@
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:locale" content="vi_VN">
     
-    <!-- Fonts -->
+    <!-- Google Fonts Luxury Boutique -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -26,18 +26,22 @@
             theme: {
                 extend: {
                     colors: {
-                        'cream': '#FAF9F6',
-                        'cream-dark': '#F0EDE6',
-                        'charcoal': '#2C2C2C',
-                        'charcoal-light': '#4A4A4A',
-                        'gold': '#C9A84C',
-                        'gold-light': '#E8C87A',
-                        'rose-boutique': '#C17B74',
-                        'sage': '#8BA888',
+                        'brand-red': '#991B1B',      // Rich Ruby Crimson
+                        'brand-red-deep': '#7F1D1D', // Deep Wine / Đỏ đô
+                        'brand-red-dark': '#4C0519', // Royal Burgundy / Nhung đỏ
+                        'brand-red-light': '#DC2626',// Bright Poppy Red
+                        'cream': '#FFF5F5',          // Soft Warm Rose Cream
+                        'cream-dark': '#FEE2E2',     // Rose blush
+                        'charcoal': '#1C1917',       // Deep rich charcoal
+                        'charcoal-light': '#57534E',
+                        'gold': '#D97706',           // Royal Warm Amber Gold
+                        'gold-light': '#FBBF24',     // Bright Shimmering Gold
+                        'rose-boutique': '#BE123C',  // Deep Rose Crimson
                     },
                     fontFamily: {
-                        'sans': ['Be Vietnam Pro', 'sans-serif'],
-                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Be Vietnam Pro', 'Plus Jakarta Sans', 'sans-serif'],
+                        'serif': ['Playfair Display', 'Cormorant Garamond', 'serif'],
+                        'display': ['Cormorant Garamond', 'Playfair Display', 'serif'],
                     },
                 }
             }
@@ -52,67 +56,71 @@
     
     {% block extra_head %}{% endblock %}
 </head>
-<body class="bg-cream text-charcoal font-sans antialiased">
+<body class="bg-cream text-charcoal font-sans antialiased selection:bg-rose-200 selection:text-brand-red">
 
     <!-- STICKY HEADER -->
     <header x-data="{ menuOpen: false, scrolled: false }" 
             @scroll.window="scrolled = window.scrollY > 20"
-            :class="scrolled ? 'shadow-md bg-cream/98 backdrop-blur-sm' : 'bg-cream'"
+            :class="scrolled ? 'shadow-xl bg-white/95 backdrop-blur-md border-b border-rose-200/80' : 'bg-white/90 backdrop-blur-sm border-b border-rose-100'"
             class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         
         <!-- Top Bar - Hotline -->
-        <div class="bg-charcoal text-cream py-2 px-4 text-center text-sm">
-            <span class="inline-flex items-center gap-3">
-                <span>📞 Hotline tư vấn:</span>
-                <a href="tel:{{ shop_setting.clean_zalo_number|default:'0901234567' }}" class="font-bold text-gold-light text-base tracking-wide hover:text-white transition-colors">
-                    {{ shop_setting.hotline|default:'0901 234 567' }}
+        <div class="bg-gradient-to-r from-brand-red-dark via-brand-red-deep to-brand-red text-white py-2 px-4 text-center text-sm shadow-inner">
+            <span class="inline-flex items-center gap-3 flex-wrap justify-center">
+                <span class="flex items-center gap-1.5 font-medium"><span>📞</span> Hotline tư vấn:</span>
+                <a href="tel:{{ shop_setting.clean_zalo_number|default:'0866191976' }}" class="font-bold text-gold-light text-base tracking-wide hover:text-white transition-colors">
+                    {{ shop_setting.hotline|default:'0866 191 976' }}
                 </a>
-                <span class="text-cream/50">|</span>
-                <a href="{{ shop_setting.zalo_link|default:'https://zalo.me/0901234567' }}" target="_blank" 
-                   class="bg-blue-500 text-white px-3 py-0.5 rounded-full text-xs font-semibold hover:bg-blue-400 transition-colors inline-flex items-center gap-1">
+                <span class="text-white/40">|</span>
+                <a href="{{ shop_setting.zalo_link|default:'https://zalo.me/0866191976' }}" target="_blank" 
+                   class="bg-blue-600 text-white px-3 py-0.5 rounded-full text-xs font-semibold hover:bg-blue-500 transition-colors inline-flex items-center gap-1 shadow-sm">
                     <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V9h2v7zm4 0h-2V9h2v7z"/></svg>
                     Tư vấn Zalo
                 </a>
-                <span class="text-cream/50 hidden sm:inline">|</span>
-                <span class="hidden sm:inline text-cream/80">{{ shop_setting.banner_text|default:'Giao hàng toàn quốc · Đổi trả 7 ngày' }}</span>
+                <span class="text-white/40 hidden sm:inline">|</span>
+                <span class="hidden sm:inline text-rose-100 font-medium">✨ {{ shop_setting.banner_text|default:'Giao hàng toàn quốc · Kiểm tra trước khi thanh toán' }}</span>
             </span>
         </div>
         
         <!-- Main Header -->
-        <div class="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-12 py-3.5 flex items-center justify-between">
+        <div class="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-12 py-3 flex items-center justify-between">
             <!-- Logo -->
             <a href="/" class="flex flex-col items-start group">
-                <span class="font-serif text-2xl font-bold text-charcoal group-hover:text-gold transition-colors tracking-wide">
-                    {{ shop_setting.shop_name|default:'Shop Hồng Loan' }}
-                </span>
-                <span class="text-xs text-charcoal-light tracking-[0.25em] uppercase font-medium -mt-0.5">
-                    Thời Trang Trung Niên
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl text-gold drop-shadow-sm">👑</span>
+                    <span class="font-display text-2xl md:text-3xl font-bold text-brand-red group-hover:text-gold transition-colors tracking-tight">
+                        {{ shop_setting.shop_name|default:'Shop Hồng Loan' }}
+                    </span>
+                </div>
+                <span class="text-[10px] md:text-xs text-brand-red-deep tracking-[0.28em] uppercase font-bold pl-8 -mt-1">
+                    Thời Trang Trung Niên Quý Phái
                 </span>
             </a>
             
             <!-- Desktop Navigation -->
-            <nav class="hidden md:flex items-center gap-8">
-                <a href="/" class="text-charcoal hover:text-gold transition-colors font-medium text-sm tracking-wide uppercase">Trang chủ</a>
-                <a href="/bo-suu-tap/" class="text-charcoal hover:text-gold transition-colors font-medium text-sm tracking-wide uppercase">Bộ sưu tập</a>
-                <a href="/bo-suu-tap/?category=dam-vay" class="text-charcoal hover:text-gold transition-colors font-medium text-sm tracking-wide uppercase">Đầm/Váy</a>
-                <a href="/bo-suu-tap/?category=ao-kieu" class="text-charcoal hover:text-gold transition-colors font-medium text-sm tracking-wide uppercase">Áo kiểu</a>
-                <a href="/bo-suu-tap/?category=do-bo" class="text-charcoal hover:text-gold transition-colors font-medium text-sm tracking-wide uppercase">Đồ bộ</a>
-                <a href="/gioi-thieu/" class="text-charcoal hover:text-gold transition-colors font-medium text-sm tracking-wide uppercase">Về chúng tôi</a>
+            <nav class="hidden md:flex items-center gap-6 lg:gap-8">
+                <a href="/" class="text-charcoal hover:text-brand-red transition-colors font-semibold text-xs tracking-widest uppercase py-1 border-b-2 border-transparent hover:border-brand-red">Trang chủ</a>
+                <a href="/bo-suu-tap/" class="text-charcoal hover:text-brand-red transition-colors font-semibold text-xs tracking-widest uppercase py-1 border-b-2 border-transparent hover:border-brand-red">Bộ sưu tập</a>
+                <a href="/bo-suu-tap/?category=dam-vay" class="text-charcoal hover:text-brand-red transition-colors font-semibold text-xs tracking-widest uppercase py-1 border-b-2 border-transparent hover:border-brand-red">Đầm/Váy</a>
+                <a href="/bo-suu-tap/?category=ao-kieu" class="text-charcoal hover:text-brand-red transition-colors font-semibold text-xs tracking-widest uppercase py-1 border-b-2 border-transparent hover:border-brand-red">Áo kiểu</a>
+                <a href="/bo-suu-tap/?category=do-bo" class="text-charcoal hover:text-brand-red transition-colors font-semibold text-xs tracking-widest uppercase py-1 border-b-2 border-transparent hover:border-brand-red">Đồ bộ</a>
+                <a href="/bo-suu-tap/?category=vest" class="text-charcoal hover:text-brand-red transition-colors font-semibold text-xs tracking-widest uppercase py-1 border-b-2 border-transparent hover:border-brand-red">Vest/Blazer</a>
+                <a href="/gioi-thieu/" class="text-charcoal hover:text-brand-red transition-colors font-semibold text-xs tracking-widest uppercase py-1 border-b-2 border-transparent hover:border-brand-red">Về chúng tôi</a>
             </nav>
             
             <!-- CTA Hotline -->
             <div class="hidden md:flex items-center gap-3">
-                <a href="tel:{{ shop_setting.clean_zalo_number|default:'0901234567' }}" 
-                   class="bg-gold text-white px-5 py-2 rounded-full font-bold text-sm hover:bg-gold-light transition-all shadow-md hover:shadow-lg flex items-center gap-2">
+                <a href="tel:{{ shop_setting.clean_zalo_number|default:'0866191976' }}" 
+                   class="btn-red-gradient text-white px-5 py-2.5 rounded-full font-bold text-sm flex items-center gap-2 animate-pulse-red">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                     </svg>
-                    {{ shop_setting.hotline|default:'0901 234 567' }}
+                    {{ shop_setting.hotline|default:'0866 191 976' }}
                 </a>
             </div>
             
             <!-- Mobile Menu Button -->
-            <button @click="menuOpen = !menuOpen" class="md:hidden p-2 rounded-lg hover:bg-cream-dark transition-colors">
+            <button @click="menuOpen = !menuOpen" class="md:hidden p-2 rounded-lg hover:bg-rose-50 text-brand-red transition-colors">
                 <svg x-show="!menuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                 </svg>
@@ -126,17 +134,18 @@
         <div x-show="menuOpen" x-transition:enter="transition ease-out duration-200" 
              x-transition:enter-start="opacity-0 -translate-y-2" 
              x-transition:enter-end="opacity-100 translate-y-0"
-             class="md:hidden bg-white border-t border-cream-dark shadow-lg">
+             class="md:hidden bg-white border-t border-rose-100 shadow-xl">
             <nav class="container mx-auto px-4 py-4 flex flex-col gap-1">
-                <a href="/" class="py-2 px-3 rounded-lg hover:bg-cream font-medium">Trang chủ</a>
-                <a href="/bo-suu-tap/" class="py-2 px-3 rounded-lg hover:bg-cream font-medium">Bộ sưu tập</a>
-                <a href="/bo-suu-tap/?category=dam-vay" class="py-2 px-3 rounded-lg hover:bg-cream font-medium">Đầm/Váy</a>
-                <a href="/bo-suu-tap/?category=ao-kieu" class="py-2 px-3 rounded-lg hover:bg-cream font-medium">Áo kiểu</a>
-                <a href="/bo-suu-tap/?category=do-bo" class="py-2 px-3 rounded-lg hover:bg-cream font-medium">Đồ bộ</a>
-                <a href="/gioi-thieu/" class="py-2 px-3 rounded-lg hover:bg-cream font-medium">Về chúng tôi</a>
-                <div class="mt-3 pt-3 border-t border-cream-dark">
-                    <a href="tel:{{ shop_setting.clean_zalo_number|default:'0901234567' }}" class="flex items-center justify-center gap-2 bg-gold text-white py-3 rounded-xl font-bold">
-                        📞 Gọi ngay: {{ shop_setting.hotline|default:'0901 234 567' }}
+                <a href="/" class="py-2.5 px-3 rounded-lg hover:bg-rose-50 text-charcoal font-medium">Trang chủ</a>
+                <a href="/bo-suu-tap/" class="py-2.5 px-3 rounded-lg hover:bg-rose-50 text-charcoal font-medium">Bộ sưu tập</a>
+                <a href="/bo-suu-tap/?category=dam-vay" class="py-2.5 px-3 rounded-lg hover:bg-rose-50 text-charcoal font-medium">👗 Đầm/Váy</a>
+                <a href="/bo-suu-tap/?category=ao-kieu" class="py-2.5 px-3 rounded-lg hover:bg-rose-50 text-charcoal font-medium">👚 Áo kiểu</a>
+                <a href="/bo-suu-tap/?category=do-bo" class="py-2.5 px-3 rounded-lg hover:bg-rose-50 text-charcoal font-medium">🧥 Đồ bộ</a>
+                <a href="/bo-suu-tap/?category=vest" class="py-2.5 px-3 rounded-lg hover:bg-rose-50 text-charcoal font-medium">🥻 Vest/Blazer</a>
+                <a href="/gioi-thieu/" class="py-2.5 px-3 rounded-lg hover:bg-rose-50 text-charcoal font-medium">Về chúng tôi</a>
+                <div class="mt-3 pt-3 border-t border-rose-100">
+                    <a href="tel:{{ shop_setting.clean_zalo_number|default:'0866191976' }}" class="flex items-center justify-center gap-2 btn-red-gradient text-white py-3 rounded-xl font-bold">
+                        📞 Gọi ngay: {{ shop_setting.hotline|default:'0866 191 976' }}
                     </a>
                 </div>
             </nav>
@@ -144,86 +153,89 @@
     </header>
 
     <!-- MAIN CONTENT -->
-    <main class="pt-[88px] md:pt-[100px]">
+    <main class="pt-[88px] md:pt-[96px]">
         {% block content %}{% endblock %}
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-charcoal text-cream mt-20">
+    <footer class="bg-gradient-to-b from-brand-red-dark via-[#3B0713] to-[#1C0209] text-white mt-20 border-t-2 border-gold/40">
         <div class="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-12 py-14">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                 <!-- Brand -->
                 <div>
-                    <div class="font-serif text-3xl font-bold text-gold mb-2">{{ shop_setting.shop_name|default:'Shop Hồng Loan' }}</div>
-                    <div class="text-cream/60 text-sm tracking-[0.2em] uppercase mb-4">Thời Trang Trung Niên</div>
-                    <p class="text-cream/70 text-sm leading-relaxed">
-                        Chuyên thời trang trung niên cao cấp. Vải đũi, lụa tơ tằm, cotton cao cấp — mang đến vẻ đẹp quý phái, thanh lịch cho phụ nữ Việt.
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-3xl text-gold">👑</span>
+                        <div class="font-display text-3xl font-bold text-gold-light">{{ shop_setting.shop_name|default:'Shop Hồng Loan' }}</div>
+                    </div>
+                    <div class="text-rose-200 text-xs tracking-[0.25em] uppercase mb-4 font-semibold">Thời Trang Trung Niên Quý Phái</div>
+                    <p class="text-rose-100/80 text-sm leading-relaxed">
+                        Chuyên thời trang trung niên cao cấp. Vải đũi tự nhiên, lụa tơ tằm, cotton cao cấp — mang đến vẻ đẹp phúc hậu, quý phái và thanh lịch cho phụ nữ Việt Nam.
                     </p>
                 </div>
                 
                 <!-- Links -->
                 <div>
-                    <h4 class="font-semibold text-gold mb-4 uppercase tracking-wide text-sm">Danh mục</h4>
-                    <ul class="space-y-2 text-cream/70 text-sm">
-                        <li><a href="/bo-suu-tap/?category=dam-vay" class="hover:text-gold transition-colors">👗 Đầm/Váy</a></li>
-                        <li><a href="/bo-suu-tap/?category=ao-kieu" class="hover:text-gold transition-colors">👚 Áo kiểu</a></li>
-                        <li><a href="/bo-suu-tap/?category=do-bo" class="hover:text-gold transition-colors">🧥 Đồ bộ</a></li>
-                        <li><a href="/bo-suu-tap/?category=vest" class="hover:text-gold transition-colors">🥻 Vest/Blazer</a></li>
+                    <h4 class="font-bold text-gold-light mb-4 uppercase tracking-wider text-sm border-b border-white/10 pb-2">Danh mục sản phẩm</h4>
+                    <ul class="space-y-2.5 text-rose-100/85 text-sm">
+                        <li><a href="/bo-suu-tap/?category=dam-vay" class="hover:text-gold-light transition-colors flex items-center gap-2"><span>👗</span> Đầm/Váy Trung Niên</a></li>
+                        <li><a href="/bo-suu-tap/?category=ao-kieu" class="hover:text-gold-light transition-colors flex items-center gap-2"><span>👚</span> Áo Kiểu Lụa & Đũi</a></li>
+                        <li><a href="/bo-suu-tap/?category=do-bo" class="hover:text-gold-light transition-colors flex items-center gap-2"><span>🧥</span> Đồ Bộ Thoải Mái</a></li>
+                        <li><a href="/bo-suu-tap/?category=vest" class="hover:text-gold-light transition-colors flex items-center gap-2"><span>🥻</span> Vest & Blazer Quý Bà</a></li>
                     </ul>
                 </div>
                 
                 <!-- Contact -->
                 <div>
-                    <h4 class="font-semibold text-gold mb-4 uppercase tracking-wide text-sm">Liên hệ</h4>
-                    <ul class="space-y-3 text-cream/70 text-sm">
-                        <li class="flex items-center gap-2">
-                            <span>📞</span>
-                            <a href="tel:{{ shop_setting.clean_zalo_number|default:'0901234567' }}" class="text-gold-light font-bold text-base hover:text-white transition-colors">
-                                {{ shop_setting.hotline|default:'0901 234 567' }}
+                    <h4 class="font-bold text-gold-light mb-4 uppercase tracking-wider text-sm border-b border-white/10 pb-2">Thông tin liên hệ</h4>
+                    <ul class="space-y-3.5 text-rose-100/90 text-sm">
+                        <li class="flex items-center gap-2.5">
+                            <span class="text-lg">📞</span>
+                            <a href="tel:{{ shop_setting.clean_zalo_number|default:'0866191976' }}" class="text-gold-light font-bold text-base hover:text-white transition-colors">
+                                {{ shop_setting.hotline|default:'0866 191 976' }}
                             </a>
                         </li>
-                        <li class="flex items-start gap-2">
-                            <span>📍</span>
-                            <span>{{ shop_setting.address|default:'123 Nguyễn Trãi, P.3, Q.5, TP.HCM' }}</span>
+                        <li class="flex items-start gap-2.5">
+                            <span class="text-lg">📍</span>
+                            <span>{{ shop_setting.address|default:'Chợ Cổ Cò, Cái Bè, Đồng Tháp' }}</span>
                         </li>
-                        <li class="flex items-center gap-2">
-                            <span>🕐</span>
-                            <span>{{ shop_setting.open_hours|default:'8:00 - 20:00 (Thứ 2 - Chủ nhật)' }}</span>
+                        <li class="flex items-center gap-2.5">
+                            <span class="text-lg">🕐</span>
+                            <span>{{ shop_setting.open_hours|default:'8:00 - 20:00 (Hàng ngày)' }}</span>
                         </li>
-                        <li class="flex items-center gap-2">
-                            <a href="{{ shop_setting.zalo_link|default:'https://zalo.me/0901234567' }}" target="_blank" 
-                               class="bg-blue-500 text-white px-4 py-2 rounded-full text-xs font-bold hover:bg-blue-400 transition-colors">
-                                Chat Zalo ngay
+                        <li class="flex items-center gap-2.5 pt-1">
+                            <a href="{{ shop_setting.zalo_link|default:'https://zalo.me/0866191976' }}" target="_blank" 
+                               class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-full text-xs font-bold transition-all shadow-md inline-flex items-center gap-1.5">
+                                💬 Nhắn Zalo tư vấn
                             </a>
                         </li>
                     </ul>
                 </div>
             </div>
             
-            <div class="border-t border-cream/10 mt-10 pt-6 text-center text-cream/40 text-xs">
+            <div class="border-t border-white/10 mt-12 pt-6 text-center text-rose-200/60 text-xs">
                 © 2024 {{ shop_setting.shop_name|default:'Shop Hồng Loan' }} · Thời trang trung niên cao cấp · Giao hàng toàn quốc
             </div>
         </div>
     </footer>
 
     <!-- Phone Floating Button -->
-    <a href="tel:{{ shop_setting.clean_zalo_number|default:'0901234567' }}"
-       class="fixed bottom-40 right-6 z-40 bg-gold text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform hover:shadow-2xl group border border-white/40"
+    <a href="tel:{{ shop_setting.clean_zalo_number|default:'0866191976' }}"
+       class="fixed bottom-40 right-6 z-40 btn-red-gradient text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform animate-pulse-red group border-2 border-white/70"
        title="Gọi Hotline">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
         </svg>
-        <span class="absolute right-14 bg-white text-charcoal text-xs font-semibold px-3 py-1 rounded-full shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+        <span class="absolute right-14 bg-brand-red text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
             Gọi Hotline
         </span>
     </a>
 
     <!-- Zalo Floating Button -->
-    <a href="{{ shop_setting.zalo_link|default:'https://zalo.me/0901234567' }}" target="_blank"
-       class="fixed bottom-24 right-6 z-40 bg-blue-500 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform hover:shadow-2xl group border border-white/40"
+    <a href="{{ shop_setting.zalo_link|default:'https://zalo.me/0866191976' }}" target="_blank"
+       class="fixed bottom-24 right-6 z-40 bg-blue-600 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform group border-2 border-white/70"
        title="Chat Zalo">
         <span class="text-xl">💬</span>
-        <span class="absolute right-14 bg-white text-charcoal text-xs font-semibold px-3 py-1 rounded-full shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+        <span class="absolute right-14 bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
             Nhắn Zalo
         </span>
     </a>
@@ -234,7 +246,7 @@
     <div x-data="aiChatWidget()" class="relative z-50">
         <!-- Floating Chatbot Action Button -->
         <button @click="toggleChat()" type="button"
-                class="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-rose-boutique via-[#B56D66] to-gold text-white pl-3.5 pr-4.5 py-2.5 sm:py-3 sm:pl-4 sm:pr-5 rounded-full shadow-2xl flex items-center gap-2.5 hover:scale-105 active:scale-95 transition-all duration-300 border-2 border-white/60 group cursor-pointer focus:outline-none"
+                class="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-brand-red via-rose-700 to-amber-600 text-white pl-3.5 pr-4.5 py-2.5 sm:py-3 sm:pl-4 sm:pr-5 rounded-full shadow-2xl flex items-center gap-2.5 hover:scale-105 active:scale-95 transition-all duration-300 border-2 border-white/80 group cursor-pointer focus:outline-none"
                 title="Trợ lý AI tư vấn bán hàng">
             <div class="relative flex items-center justify-center w-8 h-8 rounded-full bg-white/20">
                 <span class="text-xl">🌸</span>
@@ -244,7 +256,7 @@
                 </span>
             </div>
             <div class="flex flex-col text-left">
-                <span class="text-[10px] uppercase tracking-wider font-semibold text-white/90 leading-tight">Trợ lý AI</span>
+                <span class="text-[10px] uppercase tracking-wider font-semibold text-rose-100 leading-tight">Trợ lý AI</span>
                 <span class="text-xs sm:text-sm font-bold text-white tracking-wide">Tư vấn ngay</span>
             </div>
         </button>

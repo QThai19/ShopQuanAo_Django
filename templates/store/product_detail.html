@@ -126,149 +126,156 @@
             <!-- Category Badge -->
             {% if product.category %}
             <a href="/bo-suu-tap/?category={{ product.category.slug }}" 
-               class="inline-block text-gold border border-gold text-xs font-semibold px-3 py-1 rounded-full mb-3 hover:bg-gold hover:text-white transition-colors tracking-wide uppercase">
+               class="inline-block text-brand-red border border-brand-red/40 bg-rose-50 text-xs font-bold px-3.5 py-1 rounded-full mb-3 hover:bg-brand-red hover:text-white transition-colors tracking-wide uppercase">
                 {{ product.category.icon }} {{ product.category.name }}
             </a>
             {% endif %}
             
             <!-- Product Name -->
-            <h1 class="font-serif text-2xl md:text-3xl lg:text-4xl font-bold text-charcoal leading-tight mb-4">
+            <h1 class="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-red-deep leading-tight mb-4">
                 {{ product.name }}
             </h1>
             
             <!-- Fabric Badge -->
-            <div class="inline-flex items-center gap-2 bg-cream-dark text-charcoal px-4 py-2 rounded-full text-sm font-medium mb-6">
-                🧵 Chất liệu: <span class="font-bold text-gold">{{ product.get_fabric_display_name }}</span>
+            <div class="inline-flex items-center gap-2 bg-rose-50 text-brand-red-deep border border-rose-200/80 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+                🧵 Chất liệu: <span class="font-bold text-brand-red">{{ product.get_fabric_display_name }}</span>
             </div>
             
             <!-- Price Block -->
-            <div class="bg-cream-dark rounded-2xl p-5 mb-6">
+            <div class="bg-rose-50/80 border border-rose-200/80 rounded-2xl p-5 sm:p-6 mb-6 shadow-sm">
                 {% if product.sale_price %}
-                <div class="flex items-center gap-4 mb-2">
-                    <span class="text-3xl md:text-4xl font-bold text-rose-boutique">
+                <div class="flex items-center gap-4 mb-2 flex-wrap">
+                    <span class="text-3xl sm:text-4xl font-extrabold text-brand-red">
                         {{ product.sale_price|vnd }}
                     </span>
                     <div>
-                        <span class="bg-rose-boutique text-white text-sm font-bold px-3 py-1 rounded-full">
-                            Giảm {{ product.discount_percent }}%
+                        <span class="bg-gradient-to-r from-red-600 to-rose-600 text-white text-xs sm:text-sm font-extrabold px-3 py-1 rounded-full badge-hot-sale shadow-md">
+                            Tiết kiệm {{ product.discount_percent }}%
                         </span>
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
                     <span class="text-charcoal/40 text-base line-through">{{ product.price|vnd }}</span>
-                    <span class="text-charcoal/60 text-sm">Giá gốc</span>
+                    <span class="text-charcoal/60 text-xs font-medium">Giá niêm yết</span>
                 </div>
                 {% else %}
-                <span class="text-3xl md:text-4xl font-bold text-charcoal">{{ product.price|vnd }}</span>
+                <span class="text-3xl sm:text-4xl font-extrabold text-brand-red">{{ product.price|vnd }}</span>
                 {% endif %}
-                <p class="text-sm text-charcoal/50 mt-2">✓ Miễn phí giao hàng đơn từ 500k · ✓ Đổi trả 7 ngày</p>
+                <p class="text-xs text-brand-red-deep/80 font-medium mt-2.5 flex items-center gap-2 flex-wrap">
+                    <span>✓ Miễn phí giao hàng đơn từ 500k</span>
+                    <span>·</span>
+                    <span>✓ Kiểm tra hàng trước khi trả tiền</span>
+                    <span>·</span>
+                    <span>✓ Đổi trả 7 ngày</span>
+                </p>
             </div>
             
             <!-- Size Selection -->
             {% if sizes %}
             <div class="mb-6">
                 <div class="flex items-center justify-between mb-3">
-                    <h3 class="font-semibold text-charcoal">Chọn size:</h3>
-                    <button @click="showSizeGuide = !showSizeGuide" class="text-gold text-sm hover:underline">📐 Hướng dẫn chọn size</button>
+                    <h3 class="font-bold text-brand-red-deep">Chọn size vừa vặn:</h3>
+                    <button @click="showSizeGuide = !showSizeGuide" class="text-gold font-semibold text-xs hover:underline flex items-center gap-1">
+                        📐 Bảng gợi ý cân nặng
+                    </button>
                 </div>
                 
-                <div class="flex flex-wrap gap-2">
+                <div class="flex flex-wrap gap-2.5">
                     {% for size in sizes %}
                     <button @click="selectedSize = '{{ size.size }}'"
-                            :class="selectedSize === '{{ size.size }}' ? 'bg-charcoal text-cream border-charcoal' : 'bg-white text-charcoal border-charcoal/20 hover:border-gold hover:text-gold'"
-                            class="size-btn px-4 py-2.5 rounded-xl border-2 font-semibold text-sm transition-all min-w-[70px] text-center">
-                        <span class="block font-bold">{{ size.size }}</span>
+                            :class="selectedSize === '{{ size.size }}' ? 'bg-brand-red text-white border-brand-red shadow-md scale-105' : 'bg-white text-charcoal border-rose-200/80 hover:border-brand-red hover:text-brand-red'"
+                            class="size-btn px-4 py-2.5 rounded-xl border-2 font-bold text-sm transition-all min-w-[76px] text-center cursor-pointer">
+                        <span class="block text-base">{{ size.size }}</span>
                         {% if size.weight_hint %}
-                        <span class="block text-xs opacity-70 mt-0.5">{{ size.weight_hint }}</span>
+                        <span class="block text-[11px] opacity-80 mt-0.5 font-normal">{{ size.weight_hint }}</span>
                         {% endif %}
                     </button>
                     {% endfor %}
                 </div>
                 
                 <!-- Size Guide Popup -->
-                <div x-show="showSizeGuide" x-transition class="mt-3 bg-white border border-charcoal/10 rounded-xl p-4 text-sm">
-                    <h4 class="font-semibold mb-2">📏 Bảng hướng dẫn chọn size:</h4>
+                <div x-show="showSizeGuide" x-transition class="mt-3 bg-white border border-rose-200 rounded-xl p-4 text-sm shadow-md">
+                    <h4 class="font-bold text-brand-red-deep mb-2">📏 Bảng hướng dẫn chọn size chuẩn Shop Hồng Loan:</h4>
                     <table class="w-full text-xs border-collapse">
                         <thead>
-                            <tr class="bg-cream-dark">
-                                <th class="border border-charcoal/10 px-3 py-2 text-left">Size</th>
-                                <th class="border border-charcoal/10 px-3 py-2 text-left">Cân nặng</th>
-                                <th class="border border-charcoal/10 px-3 py-2 text-left">Chiều cao</th>
+                            <tr class="bg-rose-50 text-brand-red-deep font-bold">
+                                <th class="border border-rose-200 px-3 py-2 text-left">Size</th>
+                                <th class="border border-rose-200 px-3 py-2 text-left">Cân nặng gợi ý</th>
+                                <th class="border border-rose-200 px-3 py-2 text-left">Chiều cao tham khảo</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td class="border border-charcoal/10 px-3 py-2 font-semibold">M</td><td class="border border-charcoal/10 px-3 py-2">45-50 kg</td><td class="border border-charcoal/10 px-3 py-2">150-158 cm</td></tr>
-                            <tr class="bg-cream/50"><td class="border border-charcoal/10 px-3 py-2 font-semibold">L</td><td class="border border-charcoal/10 px-3 py-2">50-55 kg</td><td class="border border-charcoal/10 px-3 py-2">155-162 cm</td></tr>
-                            <tr><td class="border border-charcoal/10 px-3 py-2 font-semibold">XL</td><td class="border border-charcoal/10 px-3 py-2">55-62 kg</td><td class="border border-charcoal/10 px-3 py-2">158-165 cm</td></tr>
-                            <tr class="bg-cream/50"><td class="border border-charcoal/10 px-3 py-2 font-semibold">2XL</td><td class="border border-charcoal/10 px-3 py-2">62-70 kg</td><td class="border border-charcoal/10 px-3 py-2">160-168 cm</td></tr>
-                            <tr><td class="border border-charcoal/10 px-3 py-2 font-semibold">3XL</td><td class="border border-charcoal/10 px-3 py-2">70-80 kg</td><td class="border border-charcoal/10 px-3 py-2">162-170 cm</td></tr>
+                            <tr><td class="border border-rose-200 px-3 py-2 font-bold text-brand-red">M</td><td class="border border-rose-200 px-3 py-2">44 - 50 kg</td><td class="border border-rose-200 px-3 py-2">150 - 158 cm</td></tr>
+                            <tr class="bg-rose-50/50"><td class="border border-rose-200 px-3 py-2 font-bold text-brand-red">L</td><td class="border border-rose-200 px-3 py-2">50 - 56 kg</td><td class="border border-rose-200 px-3 py-2">154 - 162 cm</td></tr>
+                            <tr><td class="border border-rose-200 px-3 py-2 font-bold text-brand-red">XL</td><td class="border border-rose-200 px-3 py-2">56 - 62 kg</td><td class="border border-rose-200 px-3 py-2">156 - 165 cm</td></tr>
+                            <tr class="bg-rose-50/50"><td class="border border-rose-200 px-3 py-2 font-bold text-brand-red">2XL</td><td class="border border-rose-200 px-3 py-2">62 - 70 kg</td><td class="border border-rose-200 px-3 py-2">158 - 168 cm</td></tr>
+                            <tr><td class="border border-rose-200 px-3 py-2 font-bold text-brand-red">3XL</td><td class="border border-rose-200 px-3 py-2">70 - 78 kg</td><td class="border border-rose-200 px-3 py-2">160 - 170 cm</td></tr>
                         </tbody>
                     </table>
-                    <p class="text-charcoal/50 mt-2">* Nếu không chắc, hãy gọi Hotline để được tư vấn size phù hợp nhé!</p>
+                    <p class="text-charcoal/60 text-xs mt-2.5">* Quý cô/chị có thể gọi Hotline hoặc bấm Zalo để em tư vấn số đo chính xác nhất nhé!</p>
                 </div>
             </div>
             {% endif %}
             
             
             <!-- ===== SUPER FAST ORDER BLOCK ===== -->
-            <div class="border-2 border-gold rounded-2xl p-5 mb-6">
+            <div class="border-2 border-brand-red/30 bg-rose-50/50 rounded-2xl p-5 sm:p-6 mb-6 shadow-sm">
                 <div class="flex items-center gap-2 mb-4">
-                    <span class="text-xl">⚡</span>
-                    <h3 class="font-bold text-charcoal text-lg">Đặt hàng nhanh</h3>
-                    <span class="text-xs bg-gold text-white px-2 py-0.5 rounded-full font-semibold">Giao hàng ngay hôm nay</span>
+                    <span class="text-2xl">⚡</span>
+                    <h3 class="font-bold text-brand-red-deep text-lg">Đặt hàng nhanh (Giao tận nơi)</h3>
                 </div>
                 
                 <!-- Quick Order Form -->
                 <form @submit.prevent="submitOrder()" class="space-y-3">
                     <div>
-                        <input type="text" x-model="orderForm.name" placeholder="Họ và tên *" required
-                               class="w-full border border-charcoal/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-all bg-white"
+                        <input type="text" x-model="orderForm.name" placeholder="Họ và tên của cô/chị *" required
+                               class="boutique-input"
                                autocomplete="name">
                     </div>
                     <div>
-                        <input type="tel" x-model="orderForm.phone" placeholder="Số điện thoại *" required
-                               class="w-full border border-charcoal/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-all bg-white"
+                        <input type="tel" x-model="orderForm.phone" placeholder="Số điện thoại nhận hàng *" required
+                               class="boutique-input"
                                autocomplete="tel">
                     </div>
                     <div>
-                        <input type="text" x-model="orderForm.address" placeholder="Địa chỉ giao hàng *" required
-                               class="w-full border border-charcoal/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-all bg-white"
+                        <input type="text" x-model="orderForm.address" placeholder="Địa chỉ giao hàng (Số nhà, đường, xã/phường, tỉnh/thành) *" required
+                               class="boutique-input"
                                autocomplete="street-address">
                     </div>
                     
                     <!-- Submit Button -->
                     <button type="submit" 
                             :disabled="isSubmitting"
-                            class="w-full bg-rose-boutique hover:bg-rose-600 text-white font-bold py-4 rounded-xl text-base transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2">
-                        <span x-show="!isSubmitting">🛒 ĐẶT HÀNG NGAY</span>
+                            class="btn-red-gradient w-full text-white font-extrabold py-4 rounded-xl text-base tracking-wide transition-all shadow-xl hover:-translate-y-0.5 transform disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer">
+                        <span x-show="!isSubmitting">🛒 ĐẶT HÀNG NGAY (KIỂM TRA HÀNG MỚI TRẢ TIỀN)</span>
                         <span x-show="isSubmitting" class="flex items-center gap-2">
                             <svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
-                            Đang xử lý...
+                            Đang tạo đơn hàng...
                         </span>
                     </button>
                 </form>
                 
                 <!-- Success Message -->
-                <div x-show="orderSuccess" x-transition class="mt-4 bg-green-50 border border-green-200 rounded-xl p-4 text-center">
-                    <div class="text-3xl mb-2">✅</div>
-                    <p class="font-bold text-green-800">Đặt hàng thành công!</p>
-                    <p class="text-green-600 text-sm mt-1" x-text="successMessage"></p>
+                <div x-show="orderSuccess" x-transition class="mt-4 bg-green-50 border border-green-300 rounded-xl p-4 text-center">
+                    <div class="text-3xl mb-1">🎉</div>
+                    <p class="font-bold text-green-800 text-base">Đặt hàng thành công!</p>
+                    <p class="text-green-700 text-sm mt-1" x-text="successMessage"></p>
                 </div>
                 
                 <!-- Error Message -->
-                <div x-show="orderError" x-transition class="mt-4 bg-red-50 border border-red-200 rounded-xl p-4 text-center">
-                    <p class="text-red-600 text-sm" x-text="errorMessage"></p>
+                <div x-show="orderError" x-transition class="mt-4 bg-red-50 border border-red-300 rounded-xl p-4 text-center">
+                    <p class="text-red-700 text-sm font-semibold" x-text="errorMessage"></p>
                 </div>
                 
-                <!-- Or Zalo / Call Section -->
+                <!-- Or Contact Section -->
                 <div class="relative my-4">
-                    <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-charcoal/10"></div></div>
-                    <div class="relative flex justify-center text-xs text-charcoal/40"><span class="bg-white px-3 font-medium">hoặc liên hệ trực tiếp</span></div>
+                    <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-rose-200"></div></div>
+                    <div class="relative flex justify-center text-xs text-charcoal/50"><span class="bg-rose-50 px-3 font-semibold">hoặc tư vấn trực tiếp</span></div>
                 </div>
                 
                 <!-- Zalo Chat Button with product information -->
                 <button type="button" @click="chatZaloProduct()"
-                        class="w-full bg-[#0068FF] hover:bg-[#0055d4] text-white font-bold py-3.5 rounded-xl text-base text-center transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5 transform flex items-center justify-center gap-2 mb-2.5">
+                        class="w-full bg-[#0068FF] hover:bg-[#0055d4] text-white font-bold py-3.5 rounded-xl text-sm sm:text-base text-center transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5 transform flex items-center justify-center gap-2 mb-2.5 cursor-pointer">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 48 48">
                         <path d="M24 4C12.95 4 4 12.52 4 23.03c0 5.86 2.8 11.12 7.23 14.67-.32 2.37-1.32 5.84-2.73 7.85 2.92-.37 6.94-1.6 9.68-3.08 1.84.45 3.79.7 5.82.7 11.05 0 20-8.52 20-19.03C44 12.52 35.05 4 24 4z"/>
                     </svg>
@@ -276,9 +283,9 @@
                 </button>
 
                 <!-- Hotline Call Button -->
-                <a href="tel:{{ shop_setting.clean_zalo_number|default:'0901234567' }}" 
-                   class="block w-full bg-gold hover:bg-gold-light text-white font-bold py-3.5 rounded-xl text-base text-center transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 transform">
-                    📞 GỌI ĐẶT HÀNG: {{ shop_setting.hotline|default:'0901 234 567' }}
+                <a href="tel:{{ shop_setting.clean_zalo_number|default:'0866191976' }}" 
+                   class="btn-gold block w-full text-white font-bold py-3.5 rounded-xl text-sm sm:text-base text-center transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 transform">
+                    📞 GỌI ĐẶT HÀNG: {{ shop_setting.hotline|default:'0866 191 976' }}
                 </a>
             </div>
             
@@ -316,23 +323,25 @@
     {% if related_products %}
     <div class="mt-20">
         <div class="text-center mb-10">
-            <p class="text-gold font-medium tracking-[0.3em] uppercase text-xs mb-2">Có thể bạn thích</p>
-            <h2 class="font-serif text-2xl md:text-3xl font-bold text-charcoal">Sản Phẩm Liên Quan</h2>
-            <div class="w-16 h-0.5 bg-gold mx-auto mt-3"></div>
+            <span class="inline-block text-brand-red font-bold tracking-[0.25em] uppercase text-xs mb-2">✦ GỢI Ý DÀNH CHO CÔ/CHỊ</span>
+            <h2 class="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-brand-red-deep">Sản Phẩm Cùng Danh Mục</h2>
+            <div class="red-divider mt-3"></div>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {% for rp in related_products %}
-            <article class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
-                <a href="{{ rp.get_absolute_url }}" class="block relative overflow-hidden" style="aspect-ratio: 3/4;">
-                    {% if rp.main_image %}
-                    <img src="{{ rp.main_image.image.url }}" alt="{{ rp.name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+            <article class="product-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                <a href="{{ rp.get_absolute_url }}" class="block relative overflow-hidden bg-rose-50/50" style="aspect-ratio: 3/4;">
+                    {% if rp.main_image_url %}
+                    <img src="{{ rp.main_image_url }}" alt="{{ rp.name }}" class="img-zoom w-full h-full object-cover" loading="lazy">
                     {% else %}
-                    <div class="w-full h-full bg-cream-dark flex items-center justify-center text-5xl">👗</div>
+                    <div class="w-full h-full bg-rose-50 flex items-center justify-center text-4xl">👗</div>
                     {% endif %}
                 </a>
-                <div class="p-3">
-                    <a href="{{ rp.get_absolute_url }}"><h3 class="font-semibold text-sm hover:text-gold transition-colors line-clamp-2 mb-1">{{ rp.name }}</h3></a>
-                    <span class="text-rose-boutique font-bold">{{ rp.display_price|vnd }}</span>
+                <div class="p-3.5">
+                    <a href="{{ rp.get_absolute_url }}">
+                        <h3 class="font-semibold text-sm hover:text-brand-red transition-colors line-clamp-2 mb-1.5">{{ rp.name }}</h3>
+                    </a>
+                    <span class="text-brand-red font-extrabold text-base">{{ rp.display_price|vnd }}</span>
                 </div>
             </article>
             {% endfor %}

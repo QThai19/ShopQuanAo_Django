@@ -8,81 +8,107 @@
 <div class="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-12 py-10">
     <!-- Page Header -->
     <div class="text-center mb-10">
-        <p class="text-gold font-medium tracking-[0.3em] uppercase text-xs mb-2">Khám phá</p>
-        <h1 class="font-serif text-3xl md:text-4xl font-bold text-charcoal">Bộ Sưu Tập</h1>
-        <div class="w-16 h-0.5 bg-gold mx-auto mt-3"></div>
+        <span class="inline-block text-brand-red font-bold tracking-[0.25em] uppercase text-xs mb-2">✦ SHOP HỒNG LOAN</span>
+        <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-brand-red-deep">Bộ Sưu Tập Thời Trang</h1>
+        <div class="red-divider mt-4"></div>
     </div>
     
     <!-- Category Filter Tabs -->
-    <div x-data="{ activeTab: '{{ selected_category|default:'all' }}' }" class="flex items-center justify-center flex-wrap gap-2 mb-10">
+    <div class="flex items-center justify-center flex-wrap gap-2.5 mb-10">
         <a href="/bo-suu-tap/" 
-           class="px-6 py-2.5 rounded-full font-medium text-sm transition-all duration-200 border {% if not selected_category %}bg-charcoal text-cream border-charcoal{% else %}bg-cream-dark text-charcoal border-charcoal/10 hover:bg-charcoal hover:text-cream{% endif %}">
-            Tất cả
+           class="px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-200 border {% if not selected_category %}bg-brand-red text-white border-brand-red shadow-lg shadow-brand-red/30{% else %}bg-white text-charcoal border-rose-200/80 hover:bg-rose-50 hover:text-brand-red{% endif %}">
+            ✨ Tất cả mẫu ({{ products.count }})
         </a>
         {% for cat in categories %}
         <a href="/bo-suu-tap/?category={{ cat.slug }}" 
-           class="px-6 py-2.5 rounded-full font-medium text-sm transition-all duration-200 border {% if selected_category == cat.slug %}bg-charcoal text-cream border-charcoal{% else %}bg-cream-dark text-charcoal border-charcoal/10 hover:bg-charcoal hover:text-cream{% endif %}">
+           class="px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-200 border {% if selected_category == cat.slug %}bg-brand-red text-white border-brand-red shadow-lg shadow-brand-red/30{% else %}bg-white text-charcoal border-rose-200/80 hover:bg-rose-50 hover:text-brand-red{% endif %}">
             {{ cat.icon }} {{ cat.name }}
         </a>
         {% endfor %}
     </div>
     
-    <!-- Product Count -->
-    <div class="flex items-center justify-between mb-6">
-        <p class="text-charcoal/60 text-sm">{{ products.count }} sản phẩm{% if selected_category %} trong danh mục này{% endif %}</p>
-        <div class="flex items-center gap-2 text-sm text-charcoal/60">
-            <span>Sắp xếp:</span>
-            <select class="border border-charcoal/20 rounded-lg px-3 py-1.5 bg-white text-charcoal text-sm focus:outline-none focus:ring-2 focus:ring-gold/50">
-                <option>Mới nhất</option>
-                <option>Giá thấp → cao</option>
-                <option>Giá cao → thấp</option>
-            </select>
-        </div>
+    <!-- Product Count Bar -->
+    <div class="flex items-center justify-between mb-8 pb-3 border-b border-rose-100">
+        <p class="text-brand-red-deep font-semibold text-sm">
+            Hiện có <span class="text-brand-red font-bold text-base">{{ products.count }}</span> mẫu thời trang{% if selected_category %} trong danh mục này{% endif %}
+        </p>
+        <span class="text-xs text-charcoal/50 font-medium hidden sm:inline">
+            💎 Vải tự nhiên tuyển chọn · Kiểm tra trước khi thanh toán
+        </span>
     </div>
     
     <!-- Product Grid -->
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
         {% for product in products %}
-        <article class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
-            <a href="{{ product.get_absolute_url }}" class="block relative overflow-hidden" style="aspect-ratio: 3/4;">
-                {% if product.main_image_url %}
-                <img src="{{ product.main_image_url }}" 
-                     alt="{{ product.name }}"
-                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                     loading="lazy">
-                {% else %}
-                <div class="w-full h-full bg-gradient-to-br from-cream-dark to-cream flex flex-col items-center justify-center text-charcoal/30">
-                    <span class="text-5xl mb-2">👗</span>
-                    <span class="text-xs">Chưa có ảnh</span>
-                </div>
-                {% endif %}
-                
-                <div class="absolute top-2 left-2 flex flex-col gap-1">
-                    {% if product.is_new %}<span class="bg-charcoal text-cream text-xs font-semibold px-2.5 py-1 rounded-full">Mới</span>{% endif %}
-                    {% if product.discount_percent > 0 %}<span class="bg-rose-boutique text-white text-xs font-bold px-2.5 py-1 rounded-full">-{{ product.discount_percent }}%</span>{% endif %}
-                </div>
-                
-                <div class="absolute top-2 right-2">
-                    <span class="bg-white/90 backdrop-blur-sm text-charcoal text-xs font-medium px-2 py-1 rounded-full shadow-sm">{{ product.get_fabric_display_name }}</span>
-                </div>
-                
-                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-charcoal/80 to-transparent py-4 px-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <span class="block text-center bg-gold text-white text-sm font-semibold py-2.5 rounded-xl w-full">Xem chi tiết</span>
-                </div>
-            </a>
-            
-            <div class="p-3 md:p-4">
-                <a href="{{ product.get_absolute_url }}">
-                    <h3 class="font-semibold text-charcoal text-sm md:text-base leading-tight mb-2 hover:text-gold transition-colors line-clamp-2">{{ product.name }}</h3>
+        <article class="product-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between">
+            <div>
+                <!-- Product Image -->
+                <a href="{{ product.get_absolute_url }}" class="block relative overflow-hidden bg-rose-50/50" style="aspect-ratio: 3/4;">
+                    {% if product.main_image_url %}
+                    <img src="{{ product.main_image_url }}" 
+                         alt="{{ product.name }}"
+                         class="img-zoom w-full h-full object-cover"
+                         loading="lazy">
+                    {% else %}
+                    <div class="w-full h-full bg-gradient-to-br from-rose-100 to-rose-50 flex flex-col items-center justify-center text-brand-red/40">
+                        <span class="text-5xl mb-2">👗</span>
+                        <span class="text-xs font-semibold">Chưa có ảnh</span>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Badges -->
+                    <div class="absolute top-2.5 left-2.5 flex flex-col gap-1.5 z-10">
+                        {% if product.is_new %}
+                        <span class="bg-brand-red text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow-md">Mới</span>
+                        {% endif %}
+                        {% if product.discount_percent > 0 %}
+                        <span class="bg-gradient-to-r from-red-600 to-rose-600 text-white text-[11px] font-extrabold px-2.5 py-0.5 rounded-full badge-hot-sale shadow-md">
+                            -{{ product.discount_percent }}%
+                        </span>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Fabric Badge -->
+                    <div class="absolute top-2.5 right-2.5 z-10">
+                        <span class="fabric-badge shadow-sm">
+                            {{ product.get_fabric_display_name }}
+                        </span>
+                    </div>
+                    
+                    <!-- Quick Action Overlay -->
+                    <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-brand-red-dark/90 via-brand-red-deep/50 to-transparent py-4 px-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center">
+                        <span class="btn-red-gradient block text-center text-white text-xs sm:text-sm font-bold py-2.5 px-4 rounded-xl w-full shadow-lg">
+                            Xem chi tiết & Đặt mua
+                        </span>
+                    </div>
                 </a>
-                <div class="flex items-end gap-2 flex-wrap">
-                    <span class="text-rose-boutique font-bold text-lg md:text-xl">{{ product.display_price|vnd }}</span>
-                    {% if product.sale_price %}<span class="text-charcoal/40 text-sm line-through">{{ product.price|vnd }}</span>{% endif %}
+                
+                <!-- Product Info -->
+                <div class="p-3.5 sm:p-4">
+                    <a href="{{ product.get_absolute_url }}">
+                        <h3 class="font-semibold text-charcoal text-sm sm:text-base leading-snug mb-2 hover:text-brand-red transition-colors line-clamp-2">
+                            {{ product.name }}
+                        </h3>
+                    </a>
+                    <div class="flex items-baseline gap-2 flex-wrap">
+                        <span class="text-brand-red font-extrabold text-base sm:text-lg md:text-xl">
+                            {{ product.display_price|vnd }}
+                        </span>
+                        {% if product.sale_price %}
+                        <span class="text-charcoal/40 text-xs sm:text-sm line-through">{{ product.price|vnd }}</span>
+                        {% endif %}
+                    </div>
                 </div>
+            </div>
+            
+            <!-- Sizes Preview -->
+            <div class="px-3.5 pb-3.5 sm:px-4 sm:pb-4 pt-0">
                 {% if product.sizes.exists %}
-                <div class="flex gap-1 mt-2 flex-wrap">
-                    {% for size in product.sizes.all|slice:":4" %}
-                    <span class="text-xs bg-cream-dark text-charcoal px-2 py-0.5 rounded font-medium">{{ size.size }}</span>
+                <div class="flex gap-1 flex-wrap pt-2 border-t border-rose-100/70">
+                    {% for size in product.sizes.all|slice:":5" %}
+                    <span class="text-[10px] bg-rose-50 text-brand-red-deep border border-rose-200/80 px-1.5 py-0.5 rounded font-bold">
+                        {{ size.size }}
+                    </span>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -91,8 +117,10 @@
         {% empty %}
         <div class="col-span-full text-center py-20 text-charcoal/50">
             <div class="text-6xl mb-4">🔍</div>
-            <p class="text-lg font-medium">Không có sản phẩm trong danh mục này</p>
-            <a href="/bo-suu-tap/" class="mt-4 inline-block text-gold hover:underline">← Xem tất cả sản phẩm</a>
+            <p class="text-xl font-bold text-brand-red-deep mb-2">Chưa có sản phẩm trong danh mục này</p>
+            <a href="/bo-suu-tap/" class="btn-red-gradient inline-block text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-md">
+                ← Xem tất cả sản phẩm
+            </a>
         </div>
         {% endfor %}
     </div>

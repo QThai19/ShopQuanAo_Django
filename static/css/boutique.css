@@ -1,202 +1,270 @@
-/* ===================================
-   SHOP HỒNG LOAN - CUSTOM STYLES
-   Tailwind CSS Extension
-   =================================== */
+/* ============================================================
+   SHOP HỒNG LOAN - LUXURY BOUTIQUE RED THEME & ANIMATIONS
+   Bản nâng cấp Giao diện Đỏ Quý Phái & Hiệu Ứng Cao Cấp
+   ============================================================ */
 
-/* CSS Custom Properties */
+/* CSS Custom Properties - Bảng màu Đỏ Hoàng Gia & Vàng Ánh Kim */
 :root {
-    --cream: #FAF9F6;
-    --cream-dark: #F0EDE6;
-    --charcoal: #2C2C2C;
-    --gold: #C9A84C;
-    --gold-light: #E8C87A;
-    --rose: #C17B74;
+    --cream: #FFF5F5;
+    --cream-dark: #FEE2E2;
+    --charcoal: #1C1917;
+    --charcoal-light: #44403C;
+    --red-ruby: #991B1B;
+    --red-deep: #7F1D1D;
+    --red-dark: #4C0519;
+    --red-bright: #DC2626;
+    --red-soft: #FEF2F2;
+    --gold: #D97706;
+    --gold-light: #FBBF24;
+    --gold-shimmer: #FDE68A;
+    --rose: #BE123C;
 }
 
-/* Font Smoothing */
+/* Font Smoothing & Rendering */
 * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
-/* Scrollbar */
+/* Luxury Scrollbar */
 ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
 }
 ::-webkit-scrollbar-track {
-    background: var(--cream-dark);
+    background: #FFF1F2;
 }
 ::-webkit-scrollbar-thumb {
-    background: var(--gold);
-    border-radius: 3px;
+    background: linear-gradient(180deg, #991B1B 0%, #D97706 100%);
+    border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--charcoal);
+    background: #7F1D1D;
 }
 
-/* ===== ANIMATIONS ===== */
+/* Selection */
+::selection {
+    background: #FECDD3;
+    color: #991B1B;
+}
+
+/* ============================================================
+   KEYFRAME ANIMATIONS
+   ============================================================ */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(22px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes shimmer {
+@keyframes shimmerGold {
     0% { background-position: -200% 0; }
     100% { background-position: 200% 0; }
 }
 
-@keyframes pulse-gold {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.4); }
-    50% { box-shadow: 0 0 0 10px rgba(201, 168, 76, 0); }
+@keyframes pulseRedRing {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.45); }
+    50% { box-shadow: 0 0 0 12px rgba(220, 38, 38, 0); }
+}
+
+@keyframes pulseGoldRing {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.5); }
+    50% { box-shadow: 0 0 0 12px rgba(217, 119, 6, 0); }
+}
+
+@keyframes floatGentle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes badgeGlow {
+    0%, 100% { opacity: 1; filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.6)); }
+    50% { opacity: 0.85; filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.9)); }
 }
 
 .animate-fadeInUp {
-    animation: fadeInUp 0.6s ease forwards;
+    animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-pulse-red {
+    animation: pulseRedRing 2.2s infinite;
 }
 
 .animate-pulse-gold {
-    animation: pulse-gold 2s infinite;
+    animation: pulseGoldRing 2.5s infinite;
 }
 
-/* ===== PRODUCT CARD ===== */
-.product-card {
-    animation: fadeIn 0.4s ease both;
+.animate-float {
+    animation: floatGentle 3s ease-in-out infinite;
 }
 
-.product-card:hover {
-    transform: translateY(-4px);
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+.font-display {
+    font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
 }
 
-/* ===== SKELETON LOADING ===== */
-.skeleton {
-    background: linear-gradient(90deg, var(--cream-dark) 25%, #e8e5de 37%, var(--cream-dark) 63%);
-    background-size: 400% 100%;
-    animation: shimmer 1.4s ease infinite;
-}
-
-/* ===== TYPOGRAPHY ===== */
 .font-serif {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
 }
 
-/* Price styling */
+.font-sans {
+    font-family: 'Be Vietnam Pro', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* Luxury Headings with Red-Gold Gradient */
+.text-luxury-gradient {
+    background: linear-gradient(135deg, #FFE4E6 0%, #FBBF24 50%, #FFFFFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gold-gradient {
+    background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #D97706 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Price Styling */
 .price-main {
-    font-size: 1.75rem;
+    font-size: 1.65rem;
     font-weight: 800;
-    color: var(--rose);
+    color: #B91C1C;
     letter-spacing: -0.02em;
 }
 
-/* ===== FABRIC BADGE ===== */
-.fabric-badge {
-    background: rgba(201, 168, 76, 0.1);
-    border: 1px solid rgba(201, 168, 76, 0.3);
-    color: var(--gold);
-    padding: 2px 10px;
-    border-radius: 999px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+/* ============================================================
+   PRODUCT CARDS & HOVER EFFECTS
+   ============================================================ */
+.product-card {
+    transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    border: 1px solid rgba(244, 63, 94, 0.08);
 }
 
-/* ===== SIZE BUTTONS ===== */
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 35px -10px rgba(153, 27, 27, 0.18), 0 10px 15px -5px rgba(0, 0, 0, 0.04);
+    border-color: rgba(220, 38, 38, 0.35);
+}
+
+.product-card .img-zoom {
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.product-card:hover .img-zoom {
+    transform: scale(1.06);
+}
+
+/* Shimmer Gold Ribbon */
+.shimmer-gold {
+    background: linear-gradient(90deg, #D97706 0%, #FDE68A 50%, #D97706 100%);
+    background-size: 200% 100%;
+    animation: shimmerGold 2.5s infinite linear;
+}
+
+/* Badge Hot Sale */
+.badge-hot-sale {
+    animation: badgeGlow 2s infinite ease-in-out;
+}
+
+/* Fabric Badge */
+.fabric-badge {
+    background: rgba(254, 242, 242, 0.95);
+    border: 1px solid rgba(220, 38, 38, 0.2);
+    color: #991B1B;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+}
+
+/* ============================================================
+   BUTTONS & CONTROLS
+   ============================================================ */
+.btn-red-gradient {
+    background: linear-gradient(135deg, #B91C1C 0%, #991B1B 50%, #7F1D1D 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(185, 28, 28, 0.35);
+    transition: all 0.25s ease;
+}
+
+.btn-red-gradient:hover {
+    background: linear-gradient(135deg, #DC2626 0%, #B91C1C 50%, #991B1B 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(185, 28, 28, 0.45);
+}
+
+.btn-gold {
+    background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
+    color: white;
+    padding: 0.875rem 2rem;
+    border-radius: 0.875rem;
+    font-weight: 700;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 16px rgba(217, 119, 6, 0.35);
+}
+
+.btn-gold:hover {
+    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(217, 119, 6, 0.45);
+}
+
+/* Size Buttons */
 .size-btn {
     position: relative;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .size-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-color: #B91C1C;
+    box-shadow: 0 4px 12px rgba(185, 28, 28, 0.15);
 }
 
-/* ===== BUTTONS ===== */
-.btn-primary {
-    background: var(--rose);
-    color: white;
-    padding: 0.875rem 2rem;
-    border-radius: 0.875rem;
-    font-weight: 700;
-    font-size: 1rem;
-    transition: all 0.2s ease;
-    display: block;
-    text-align: center;
-    box-shadow: 0 4px 16px rgba(193, 123, 116, 0.4);
-}
-
-.btn-primary:hover {
-    background: #b86a63;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(193, 123, 116, 0.5);
-}
-
-.btn-gold {
-    background: var(--gold);
-    color: white;
-    padding: 0.875rem 2rem;
-    border-radius: 0.875rem;
-    font-weight: 700;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 16px rgba(201, 168, 76, 0.4);
-}
-
-.btn-gold:hover {
-    background: var(--gold-light);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(201, 168, 76, 0.5);
-}
-
-/* ===== FORM INPUTS ===== */
+/* Boutique Inputs */
 .boutique-input {
     width: 100%;
-    border: 1.5px solid rgba(44, 44, 44, 0.15);
+    border: 1.5px solid rgba(220, 38, 38, 0.2);
     border-radius: 0.875rem;
-    padding: 0.875rem 1rem;
-    font-size: 0.9rem;
-    background: white;
-    transition: all 0.2s ease;
+    padding: 0.875rem 1.15rem;
+    font-size: 0.95rem;
+    background: #FFFFFF;
+    transition: all 0.25s ease;
     font-family: 'Be Vietnam Pro', sans-serif;
 }
 
 .boutique-input:focus {
     outline: none;
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+    border-color: #B91C1C;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+    background: #FFFDFD;
 }
 
-/* ===== HERO BANNER ===== */
-.hero-text-shadow {
-    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+/* Red Divider */
+.red-divider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #B91C1C, #F59E0B, transparent);
+    margin: 0 auto;
+    border-radius: 999px;
 }
 
-/* ===== LIGHTBOX ===== */
-.lightbox-overlay {
-    backdrop-filter: blur(4px);
+/* Skeleton Loading */
+.skeleton {
+    background: linear-gradient(90deg, #FEE2E2 25%, #FED7AA 37%, #FEE2E2 63%);
+    background-size: 400% 100%;
+    animation: shimmerGold 1.5s ease infinite;
 }
 
-/* ===== FLOATING BUTTONS ===== */
-.float-btn {
-    animation: pulse-gold 3s infinite;
-}
-
-/* ===== SCROLLED HEADER ===== */
-header.scrolled {
-    box-shadow: 0 4px 30px rgba(44, 44, 44, 0.08);
-}
-
-/* ===== IMAGE ASPECT RATIO ===== */
-.aspect-3-4 {
-    aspect-ratio: 3 / 4;
-}
-
-/* ===== LINE CLAMP ===== */
+/* Line Clamp */
 .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -204,48 +272,8 @@ header.scrolled {
     overflow: hidden;
 }
 
-/* ===== PROSE (product description) ===== */
-.prose p {
-    margin-bottom: 0.75rem;
-    line-height: 1.75;
-}
-
-.prose strong {
-    color: var(--charcoal);
-    font-weight: 700;
-}
-
-/* ===== MOBILE OPTIMIZATIONS ===== */
 @media (max-width: 640px) {
     .product-card:hover {
-        transform: none;
+        transform: translateY(-2px);
     }
-    
-    .price-main {
-        font-size: 1.4rem;
-    }
-}
-
-/* ===== SELECTION STYLING ===== */
-::selection {
-    background: rgba(201, 168, 76, 0.25);
-    color: var(--charcoal);
-}
-
-/* ===== TRANSITION UTILITIES ===== */
-.transition-smooth {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* ===== ORDER SUCCESS GLOW ===== */
-.order-success {
-    animation: pulse-gold 0.5s ease 3;
-}
-
-/* ===== GOLD DIVIDER ===== */
-.gold-divider {
-    width: 60px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 0 auto;
 }

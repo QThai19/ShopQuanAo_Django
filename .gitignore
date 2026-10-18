@@ -44,3 +44,4 @@ db.sqlite3-journal
 *.swo
 Thumbs.db
 .DS_Store
+staticfiles/
