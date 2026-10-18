@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="w-full max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-12 py-14">
+    <div class="text-center mb-12">
+        <h1 class="font-serif text-3xl md:text-4xl font-bold text-charcoal mb-3">Về Shop Hồng Loan</h1>
+        <div class="w-16 h-0.5 bg-gold mx-auto"></div>
+    </div>
+    
+    <div class="prose prose-lg max-w-none text-charcoal/80 leading-relaxed space-y-6">
+        <p class="text-xl font-medium text-charcoal">
+            Shop Hồng Loan — nơi hội tụ của vẻ đẹp tinh tế, phong cách sang trọng dành riêng cho phụ nữ trung niên Việt Nam.
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-10">
+            <div class="text-center p-6 bg-cream-dark rounded-2xl">
+                <div class="text-4xl mb-3">🧵</div>
+                <h3 class="font-serif font-bold text-lg text-charcoal mb-2">Chất Liệu Cao Cấp</h3>
+                <p class="text-sm text-charcoal/60">Vải đũi, lụa tơ tằm, cotton nhập khẩu — mềm mại, thoáng mát, bền đẹp</p>
+            </div>
+            <div class="text-center p-6 bg-cream-dark rounded-2xl">
+                <div class="text-4xl mb-3">✂️</div>
+                <h3 class="font-serif font-bold text-lg text-charcoal mb-2">Thiết Kế Riêng</h3>
+                <p class="text-sm text-charcoal/60">Mỗi mẫu đều được thiết kế phù hợp vóc dáng người phụ nữ Việt Nam</p>
+            </div>
+            <div class="text-center p-6 bg-cream-dark rounded-2xl">
+                <div class="text-4xl mb-3">💎</div>
+                <h3 class="font-serif font-bold text-lg text-charcoal mb-2">Cam Kết Chất Lượng</h3>
+                <p class="text-sm text-charcoal/60">Đổi trả 7 ngày, bảo hành chất lượng, hỗ trợ tư vấn 24/7</p>
+            </div>
+        </div>
+        
+        <p>Được thành lập năm 2015, Shop Hồng Loan đã phục vụ hơn <strong>50,000 khách hàng</strong> trên toàn quốc. Chúng tôi tự hào mang đến những thiết kế thời trang trung niên cao cấp với chất liệu vải được tuyển chọn kỹ lưỡng từ các xưởng dệt nổi tiếng trong và ngoài nước.</p>
+        
+        <div class="bg-charcoal text-cream rounded-2xl p-8 text-center">
+            <p class="font-serif text-xl font-bold mb-2 text-gold">Liên hệ tư vấn</p>
+            <a href="tel:{{ shop_setting.clean_zalo_number|default:'0901234567' }}" class="text-2xl font-bold text-gold-light hover:text-white transition-colors">📞 {{ shop_setting.hotline|default:'0901 234 567' }}</a>
+            <p class="text-cream/60 text-sm mt-2">Giờ mở cửa: {{ shop_setting.open_hours|default:'8:00 - 20:00 (Thứ 2 - Chủ nhật)' }}</p>
+            <p class="text-cream/60 text-sm">{{ shop_setting.address|default:'123 Nguyễn Trãi, P.3, Q.5, TP.HCM' }}</p>
+            <div class="mt-4">
+                <a href="{{ shop_setting.zalo_link|default:'https://zalo.me/0901234567' }}" target="_blank"
+                   class="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-400 text-white font-bold px-6 py-2.5 rounded-full text-sm transition-colors shadow">
+                    💬 Chat Zalo với Shop
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

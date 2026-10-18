@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ page_title|default:"Shop Hồng Loan" }}{% endblock %}</title>
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:site_name" content="Shop Hồng Loan">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{{ page_title|default:'Shop Hồng Loan - Thời Trang Trung Niên Cao Cấp' }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Chuyên thời trang trung niên cao cấp - Vải đũi, Lụa tơ tằm, Cotton cao cấp. Giao hàng toàn quốc.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{% endblock %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:locale" content="vi_VN">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cream': '#FAF9F6',
+                        'cream-dark': '#F0EDE6',
+                        'charcoal': '#2C2C2C',
+                        'charcoal-light': '#4A4A4A',
+                        'gold': '#C9A84C',
+                        'gold-light': '#E8C87A',
+                        'rose-boutique': '#C17B74',
+                        'sage': '#8BA888',
+                    },
+                    fontFamily: {
+                        'sans': ['Be Vietnam Pro', 'sans-serif'],
+                        'serif': ['Playfair Display', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/boutique.css">
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-cream text-charcoal font-sans antialiased">
+
+    <!-- STICKY HEADER -->
+    <header x-data="{ menuOpen: false, scrolled: false }" 
+            @scroll.window="scrolled = window.scrollY > 20"
+            :class="scrolled ? 'shadow-md bg-cream/98 backdrop-blur-sm' : 'bg-cream'"
+            class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        
+        <!-- Top Bar - Hotline -->
+        <div class="bg-charcoal text-cream py-2 px-4 text-center text-sm">
+            <span class="inline-flex items-center gap-3">
+                <span>📞 Hotline tư vấn:</span>
+                <a href="tel:{{ shop_setting.clean_zalo_number|default:'0901234567' }}" class="font-bold text-gold-light text-base tracking-wide hover:text-white transition-colors">
+                    {{ shop_setting.hotline|default:'0901 234 567' }}
+                </a>
+                <span class="text-cream/50">|</span>
+                <a href="{{ shop_setting.zalo_link|default:'https://zalo.me/0901234567' }}" target="_blank" 
+                   class="bg-blue-500 text-white px-3 py-0.5 rounded-full text-xs font-semibold hover:bg-blue-400 transition-colors inline-flex items-center gap-1">
+                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V9h2v7zm4 0h-2V9h2v7z"/></svg>
+                    Tư vấn Zalo
+                </a>
+                <span class="text-cream/50 hidden sm:inline">|</span>
+                <span class="hidden sm:inline text-cream/80">{{ shop_setting.banner_text|default:'Giao hàng toàn quốc · Đổi trả 7 ngày' }}</span>
+            </span>
+        </div>
+        
+        <!-- Main Header -->
+        <div class="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-12 py-3.5 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="/" class="flex flex-col items-start group">
+                <span class="font-serif text-2xl font-bold text-charcoal group-hover:text-gold transition-colors tracking-wide">
+                    {{ shop_setting.shop_name|default:'Shop Hồng Loan' }}
+                </span>
+                <span class="text-xs text-charcoal-light tracking-[0.25em] uppercase font-medium -mt-0.5">
+                    Thời Trang Trung Niên
+                </span>
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="/" class="text-charcoal hover:text-gold transition-colors font-medium text-sm tracking-wide uppercase">Trang chủ</a>
+                <a href="/bo-suu-tap/" class="text-charcoal hover:text-gold transition-colors font-medium text-sm tracking-wide uppercase">Bộ sưu tập</a>
+                <a href="/bo-suu-tap/?category=dam-vay" class="text-charcoal hover:text-gold transition-colors font-medium text-sm tracking-wide uppercase">Đầm/Váy</a>
+                <a href="/bo-suu-tap/?category=ao-kieu" class="text-charcoal hover:text-gold transition-colors font-medium text-sm tracking-wide uppercase">Áo kiểu</a>
+                <a href="/bo-suu-tap/?category=do-bo" class="text-charcoal hover:text-gold transition-colors font-medium text-sm tracking-wide uppercase">Đồ bộ</a>
+                <a href="/gioi-thieu/" class="text-charcoal hover:text-gold transition-colors font-medium text-sm tracking-wide uppercase">Về chúng tôi</a>
+            </nav>
+            
+            <!-- CTA Hotline -->
+            <div class="hidden md:flex items-center gap-3">
+                <a href="tel:{{ shop_setting.clean_zalo_number|default:'0901234567' }}" 
+                   class="bg-gold text-white px-5 py-2 rounded-full font-bold text-sm hover:bg-gold-light transition-all shadow-md hover:shadow-lg flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                    </svg>
+                    {{ shop_setting.hotline|default:'0901 234 567' }}
+                </a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button @click="menuOpen = !menuOpen" class="md:hidden p-2 rounded-lg hover:bg-cream-dark transition-colors">
+                <svg x-show="!menuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+                <svg x-show="menuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div x-show="menuOpen" x-transition:enter="transition ease-out duration-200" 
+             x-transition:enter-start="opacity-0 -translate-y-2" 
+             x-transition:enter-end="opacity-100 translate-y-0"
+             class="md:hidden bg-white border-t border-cream-dark shadow-lg">
+            <nav class="container mx-auto px-4 py-4 flex flex-col gap-1">
+                <a href="/" class="py-2 px-3 rounded-lg hover:bg-cream font-medium">Trang chủ</a>
+                <a href="/bo-suu-tap/" class="py-2 px-3 rounded-lg hover:bg-cream font-medium">Bộ sưu tập</a>
+                <a href="/bo-suu-tap/?category=dam-vay" class="py-2 px-3 rounded-lg hover:bg-cream font-medium">Đầm/Váy</a>
+                <a href="/bo-suu-tap/?category=ao-kieu" class="py-2 px-3 rounded-lg hover:bg-cream font-medium">Áo kiểu</a>
+                <a href="/bo-suu-tap/?category=do-bo" class="py-2 px-3 rounded-lg hover:bg-cream font-medium">Đồ bộ</a>
+                <a href="/gioi-thieu/" class="py-2 px-3 rounded-lg hover:bg-cream font-medium">Về chúng tôi</a>
+                <div class="mt-3 pt-3 border-t border-cream-dark">
+                    <a href="tel:{{ shop_setting.clean_zalo_number|default:'0901234567' }}" class="flex items-center justify-center gap-2 bg-gold text-white py-3 rounded-xl font-bold">
+                        📞 Gọi ngay: {{ shop_setting.hotline|default:'0901 234 567' }}
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="pt-[88px] md:pt-[100px]">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-charcoal text-cream mt-20">
+        <div class="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-12 py-14">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Brand -->
+                <div>
+                    <div class="font-serif text-3xl font-bold text-gold mb-2">{{ shop_setting.shop_name|default:'Shop Hồng Loan' }}</div>
+                    <div class="text-cream/60 text-sm tracking-[0.2em] uppercase mb-4">Thời Trang Trung Niên</div>
+                    <p class="text-cream/70 text-sm leading-relaxed">
+                        Chuyên thời trang trung niên cao cấp. Vải đũi, lụa tơ tằm, cotton cao cấp — mang đến vẻ đẹp quý phái, thanh lịch cho phụ nữ Việt.
+                    </p>
+                </div>
+                
+                <!-- Links -->
+                <div>
+                    <h4 class="font-semibold text-gold mb-4 uppercase tracking-wide text-sm">Danh mục</h4>
+                    <ul class="space-y-2 text-cream/70 text-sm">
+                        <li><a href="/bo-suu-tap/?category=dam-vay" class="hover:text-gold transition-colors">👗 Đầm/Váy</a></li>
+                        <li><a href="/bo-suu-tap/?category=ao-kieu" class="hover:text-gold transition-colors">👚 Áo kiểu</a></li>
+                        <li><a href="/bo-suu-tap/?category=do-bo" class="hover:text-gold transition-colors">🧥 Đồ bộ</a></li>
+                        <li><a href="/bo-suu-tap/?category=vest" class="hover:text-gold transition-colors">🥻 Vest/Blazer</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact -->
+                <div>
+                    <h4 class="font-semibold text-gold mb-4 uppercase tracking-wide text-sm">Liên hệ</h4>
+                    <ul class="space-y-3 text-cream/70 text-sm">
+                        <li class="flex items-center gap-2">
+                            <span>📞</span>
+                            <a href="tel:{{ shop_setting.clean_zalo_number|default:'0901234567' }}" class="text-gold-light font-bold text-base hover:text-white transition-colors">
+                                {{ shop_setting.hotline|default:'0901 234 567' }}
+                            </a>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span>📍</span>
+                            <span>{{ shop_setting.address|default:'123 Nguyễn Trãi, P.3, Q.5, TP.HCM' }}</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span>🕐</span>
+                            <span>{{ shop_setting.open_hours|default:'8:00 - 20:00 (Thứ 2 - Chủ nhật)' }}</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <a href="{{ shop_setting.zalo_link|default:'https://zalo.me/0901234567' }}" target="_blank" 
+                               class="bg-blue-500 text-white px-4 py-2 rounded-full text-xs font-bold hover:bg-blue-400 transition-colors">
+                                Chat Zalo ngay
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-cream/10 mt-10 pt-6 text-center text-cream/40 text-xs">
+                © 2024 {{ shop_setting.shop_name|default:'Shop Hồng Loan' }} · Thời trang trung niên cao cấp · Giao hàng toàn quốc
+            </div>
+        </div>
+    </footer>
+
+    <!-- Phone Floating Button -->
+    <a href="tel:{{ shop_setting.clean_zalo_number|default:'0901234567' }}"
+       class="fixed bottom-40 right-6 z-40 bg-gold text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform hover:shadow-2xl group border border-white/40"
+       title="Gọi Hotline">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+        </svg>
+        <span class="absolute right-14 bg-white text-charcoal text-xs font-semibold px-3 py-1 rounded-full shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+            Gọi Hotline
+        </span>
+    </a>
+
+    <!-- Zalo Floating Button -->
+    <a href="{{ shop_setting.zalo_link|default:'https://zalo.me/0901234567' }}" target="_blank"
+       class="fixed bottom-24 right-6 z-40 bg-blue-500 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform hover:shadow-2xl group border border-white/40"
+       title="Chat Zalo">
+        <span class="text-xl">💬</span>
+        <span class="absolute right-14 bg-white text-charcoal text-xs font-semibold px-3 py-1 rounded-full shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+            Nhắn Zalo
+        </span>
+    </a>
+
+    <!-- ============================================================ -->
+    <!-- AI CHATBOT SALES CONSULTANT (Shop Hồng Loan)                -->
+    <!-- ============================================================ -->
+    <div x-data="aiChatWidget()" class="relative z-50">
+        <!-- Floating Chatbot Action Button -->
+        <button @click="toggleChat()" type="button"
+                class="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-rose-boutique via-[#B56D66] to-gold text-white pl-3.5 pr-4.5 py-2.5 sm:py-3 sm:pl-4 sm:pr-5 rounded-full shadow-2xl flex items-center gap-2.5 hover:scale-105 active:scale-95 transition-all duration-300 border-2 border-white/60 group cursor-pointer focus:outline-none"
+                title="Trợ lý AI tư vấn bán hàng">
+            <div class="relative flex items-center justify-center w-8 h-8 rounded-full bg-white/20">
+                <span class="text-xl">🌸</span>
+                <span class="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-400"></span>
+                </span>
+            </div>
+            <div class="flex flex-col text-left">
+                <span class="text-[10px] uppercase tracking-wider font-semibold text-white/90 leading-tight">Trợ lý AI</span>
+                <span class="text-xs sm:text-sm font-bold text-white tracking-wide">Tư vấn ngay</span>
+            </div>
+        </button>
+
+        <!-- Chat Window Popup (Sliding up smoothly) -->
+        <div x-show="isOpen"
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 translate-y-8 scale-95"
+             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+             x-transition:leave-end="opacity-0 translate-y-8 scale-95"
+             style="display: none;"
+             class="fixed bottom-24 right-3 sm:right-6 z-50 w-[94vw] sm:w-[430px] max-h-[85vh] h-[610px] bg-white rounded-3xl shadow-2xl border-2 border-gold/40 flex flex-col overflow-hidden font-sans">
+            
+            <!-- Chat Header -->
+            <div class="bg-charcoal text-cream px-5 py-3.5 flex items-center justify-between border-b border-gold/30">
+                <div class="flex items-center gap-3">
+                    <div class="relative w-10 h-10 rounded-full bg-gradient-to-br from-gold to-rose-boutique flex items-center justify-center text-xl shadow">
+                        🌸
+                        <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-charcoal rounded-full"></span>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-bold text-sm text-gold-light leading-tight">Trợ lý {{ shop_setting.shop_name|default:'Shop Hồng Loan' }}</h3>
+                            <span class="bg-green-500/20 text-green-400 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-green-500/30">Online</span>
+                        </div>
+                        <p class="text-[11px] text-cream/70 mt-0.5">Tư vấn size chuẩn · Mẫu mới · Đặt hàng</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-1">
+                    <button @click="resetChat()" type="button" class="p-1.5 text-cream/60 hover:text-white rounded-lg hover:bg-white/10 transition-colors" title="Làm mới cuộc trò chuyện">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    </button>
+                    <button @click="closeChat()" type="button" class="p-1.5 text-cream/60 hover:text-white rounded-lg hover:bg-white/10 transition-colors text-lg font-bold leading-none" title="Đóng">
+                        ✕
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Suggestions (Gợi ý bấm nhanh - Thân thiện cho khách U40-U60) -->
+            <div class="bg-cream-dark/60 px-3.5 py-2.5 border-b border-charcoal/5 flex items-center gap-2 overflow-x-auto text-xs no-scrollbar">
+                <span class="text-charcoal/50 text-[11px] font-semibold uppercase tracking-wider flex-shrink-0">Gợi ý:</span>
+                <button @click="sendQuickPrompt('Tư vấn chọn size')" type="button"
+                        class="flex-shrink-0 bg-white hover:bg-gold hover:text-white text-charcoal border border-charcoal/15 px-3 py-1.5 rounded-full font-medium transition-all shadow-sm cursor-pointer">
+                    📏 Tư vấn chọn size
+                </button>
+                <button @click="sendQuickPrompt('Mẫu áo mới về')" type="button"
+                        class="flex-shrink-0 bg-white hover:bg-gold hover:text-white text-charcoal border border-charcoal/15 px-3 py-1.5 rounded-full font-medium transition-all shadow-sm cursor-pointer">
+                    👗 Mẫu áo mới về
+                </button>
+                <button @click="sendQuickPrompt('Cách thức đặt hàng')" type="button"
+                        class="flex-shrink-0 bg-white hover:bg-gold hover:text-white text-charcoal border border-charcoal/15 px-3 py-1.5 rounded-full font-medium transition-all shadow-sm cursor-pointer">
+                    🛒 Cách thức đặt hàng
+                </button>
+            </div>
+
+            <!-- Messages Area (To rõ, tương phản cao, dễ đọc) -->
+            <div x-ref="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3.5 bg-cream/50 text-sm">
+                <template x-for="(msg, idx) in messages" :key="idx">
+                    <div>
+                        <!-- Bot Message -->
+                        <div x-show="msg.sender === 'bot'" class="flex items-start gap-2.5">
+                            <div class="w-8 h-8 rounded-full bg-gold/20 text-gold flex items-center justify-center flex-shrink-0 text-base shadow-sm mt-0.5">
+                                🌸
+                            </div>
+                            <div class="bg-white border border-charcoal/10 rounded-2xl rounded-tl-sm p-3.5 max-w-[85%] text-charcoal shadow-sm leading-relaxed text-[15px]"
+                                 x-html="formatMessage(msg.text)">
+                            </div>
+                        </div>
+
+                        <!-- User Message -->
+                        <div x-show="msg.sender === 'user'" class="flex items-end justify-end mt-1">
+                            <div class="bg-charcoal text-cream rounded-2xl rounded-tr-sm p-3.5 max-w-[85%] shadow-md leading-relaxed text-[15px]"
+                                 x-text="msg.text">
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Typing indicator -->
+                <div x-show="isLoading" class="flex items-start gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-gold/20 text-gold flex items-center justify-center flex-shrink-0 text-base shadow-sm">
+                        🌸
+                    </div>
+                    <div class="bg-white border border-charcoal/10 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm flex items-center gap-2 text-charcoal/70 text-xs">
+                        <span class="font-medium text-rose-boutique">Em đang soạn tin nhắn tư vấn...</span>
+                        <div class="flex gap-1 items-center">
+                            <span class="w-1.5 h-1.5 bg-rose-boutique rounded-full animate-bounce" style="animation-delay: 0s"></span>
+                            <span class="w-1.5 h-1.5 bg-rose-boutique rounded-full animate-bounce" style="animation-delay: 0.15s"></span>
+                            <span class="w-1.5 h-1.5 bg-rose-boutique rounded-full animate-bounce" style="animation-delay: 0.3s"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="bg-white p-3 border-t border-charcoal/10">
+                <form @submit.prevent="sendMessage()" class="flex items-center gap-2">
+                    <input type="text" x-ref="chatInput" x-model="inputText"
+                           placeholder="Hỏi size, mẫu áo, cân nặng (vd: 58kg)..."
+                           class="flex-1 bg-cream border border-charcoal/20 rounded-xl px-4 py-2.5 text-sm sm:text-[15px] focus:outline-none focus:ring-2 focus:ring-gold/60 focus:border-gold transition-all text-charcoal"
+                           :disabled="isLoading">
+                    
+                    <button type="submit" :disabled="isLoading || !inputText.trim()"
+                            class="bg-gradient-to-r from-rose-boutique to-gold text-white p-2.5 sm:px-4 sm:py-2.5 rounded-xl hover:opacity-90 transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-md flex-shrink-0 flex items-center gap-1.5 font-bold text-sm cursor-pointer"
+                            title="Gửi câu hỏi">
+                        <span class="hidden sm:inline">Gửi</span>
+                        <svg class="w-4 h-4 transform rotate-90" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/>
+                        </svg>
+                    </button>
+                </form>
+                
+                <div class="mt-2 text-center text-[11px] text-charcoal/55 flex items-center justify-center gap-2">
+                    <span>📞 Hotline: <a href="tel:{{ shop_setting.clean_zalo_number|default:'0901234567' }}" class="text-gold font-bold hover:underline">{{ shop_setting.hotline|default:'0901 234 567' }}</a></span>
+                    <span>·</span>
+                    <span>Giao hàng tận nơi</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom JS -->
+    <script src="/static/js/boutique.js"></script>
+    <script>
+    function aiChatWidget() {
+        return {
+            isOpen: false,
+            inputText: '',
+            isLoading: false,
+            messages: [
+                {
+                    sender: 'bot',
+                    text: 'Dạ {{ shop_setting.shop_name|default:"Shop Hồng Loan"|escapejs }} xin chào cô/chú/chị ạ! 🌸\nEm là Trợ lý AI tư vấn bán hàng. Em có thể hỗ trợ cô/chú/chị chọn size chuẩn theo cân nặng, xem các mẫu đầm áo mới về hoặc hướng dẫn đặt hàng nhanh nhé ạ!'
+                }
+            ],
+
+            toggleChat() {
+                this.isOpen = !this.isOpen;
+                if (this.isOpen) {
+                    this.$nextTick(() => {
+                        this.scrollToBottom();
+                        if (this.$refs.chatInput) {
+                            this.$refs.chatInput.focus();
+                        }
+                    });
+                }
+            },
+
+            closeChat() {
+                this.isOpen = false;
+            },
+
+            resetChat() {
+                this.messages = [
+                    {
+                        sender: 'bot',
+                        text: 'Dạ cuộc trò chuyện đã được làm mới! Cô/chú/chị cần em hỗ trợ mẫu trang phục nào hay cần tư vấn size theo cân nặng bao nhiêu ký ạ? 🌸'
+                    }
+                ];
+                this.inputText = '';
+                this.isLoading = false;
+            },
+
+            sendQuickPrompt(promptText) {
+                this.inputText = promptText;
+                this.sendMessage();
+            },
+
+            async sendMessage() {
+                const query = this.inputText.trim();
+                if (!query || this.isLoading) return;
+
+                // Thêm câu hỏi của khách vào danh sách
+                this.messages.push({
+                    sender: 'user',
+                    text: query
+                });
+                this.inputText = '';
+                this.isLoading = true;
+                this.$nextTick(() => this.scrollToBottom());
+
+                try {
+                    const csrfToken = document.cookie.match(/csrftoken=([^;]+)/)?.[1] || '';
+                    const history = this.messages.slice(-8).map(m => ({
+                        sender: m.sender,
+                        text: m.text
+                    }));
+
+                    const res = await fetch('/api/chat/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrfToken,
+                        },
+                        body: JSON.stringify({
+                            message: query,
+                            history: history
+                        })
+                    });
+
+                    const data = await res.json();
+                    if (data.success && data.reply) {
+                        this.messages.push({
+                            sender: 'bot',
+                            text: data.reply
+                        });
+                    } else {
+                        this.messages.push({
+                            sender: 'bot',
+                            text: data.message || 'Dạ em xin lỗi, hệ thống đang bận một chút. Cô/chú/chị có thể bấm gọi Hotline để bên em hỗ trợ trực tiếp ngay nhé ạ!'
+                        });
+                    }
+                } catch (err) {
+                    this.messages.push({
+                        sender: 'bot',
+                        text: 'Dạ đường truyền tư vấn đang gián đoạn một chút. Cô/chú/chị vui lòng gọi Hotline {{ shop_setting.hotline|default:"0901 234 567"|escapejs }} để được hỗ trợ tức thì ạ! 🌸'
+                    });
+                } finally {
+                    this.isLoading = false;
+                    this.$nextTick(() => this.scrollToBottom());
+                }
+            },
+
+            scrollToBottom() {
+                const box = this.$refs.chatMessages;
+                if (box) {
+                    box.scrollTop = box.scrollHeight;
+                }
+            },
+
+            formatMessage(text) {
+                if (!text) return '';
+                let escaped = text
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;");
+
+                // Định dạng in đậm **text**
+                escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-charcoal">$1</strong>');
+                // Định dạng in nghiêng *text*
+                escaped = escaped.replace(/\*(.*?)\*/g, '<em class="italic text-charcoal/80">$1</em>');
+                // Định dạng link [tên](/link/)
+                escaped = escaped.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-rose-boutique font-bold underline hover:text-gold transition-colors">$1 ↗</a>');
+                // Xuống dòng
+                escaped = escaped.replace(/\n/g, '<br>');
+                return escaped;
+            }
+        };
+    }
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,251 @@
+/* ===================================
+   SHOP HỒNG LOAN - CUSTOM STYLES
+   Tailwind CSS Extension
+   =================================== */
+
+/* CSS Custom Properties */
+:root {
+    --cream: #FAF9F6;
+    --cream-dark: #F0EDE6;
+    --charcoal: #2C2C2C;
+    --gold: #C9A84C;
+    --gold-light: #E8C87A;
+    --rose: #C17B74;
+}
+
+/* Font Smoothing */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--cream-dark);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--charcoal);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+@keyframes pulse-gold {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(201, 168, 76, 0); }
+}
+
+.animate-fadeInUp {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.animate-pulse-gold {
+    animation: pulse-gold 2s infinite;
+}
+
+/* ===== PRODUCT CARD ===== */
+.product-card {
+    animation: fadeIn 0.4s ease both;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+}
+
+/* ===== SKELETON LOADING ===== */
+.skeleton {
+    background: linear-gradient(90deg, var(--cream-dark) 25%, #e8e5de 37%, var(--cream-dark) 63%);
+    background-size: 400% 100%;
+    animation: shimmer 1.4s ease infinite;
+}
+
+/* ===== TYPOGRAPHY ===== */
+.font-serif {
+    font-family: 'Playfair Display', serif;
+}
+
+/* Price styling */
+.price-main {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--rose);
+    letter-spacing: -0.02em;
+}
+
+/* ===== FABRIC BADGE ===== */
+.fabric-badge {
+    background: rgba(201, 168, 76, 0.1);
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    color: var(--gold);
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* ===== SIZE BUTTONS ===== */
+.size-btn {
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.size-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* ===== BUTTONS ===== */
+.btn-primary {
+    background: var(--rose);
+    color: white;
+    padding: 0.875rem 2rem;
+    border-radius: 0.875rem;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    display: block;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(193, 123, 116, 0.4);
+}
+
+.btn-primary:hover {
+    background: #b86a63;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(193, 123, 116, 0.5);
+}
+
+.btn-gold {
+    background: var(--gold);
+    color: white;
+    padding: 0.875rem 2rem;
+    border-radius: 0.875rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 16px rgba(201, 168, 76, 0.4);
+}
+
+.btn-gold:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(201, 168, 76, 0.5);
+}
+
+/* ===== FORM INPUTS ===== */
+.boutique-input {
+    width: 100%;
+    border: 1.5px solid rgba(44, 44, 44, 0.15);
+    border-radius: 0.875rem;
+    padding: 0.875rem 1rem;
+    font-size: 0.9rem;
+    background: white;
+    transition: all 0.2s ease;
+    font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+.boutique-input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+}
+
+/* ===== HERO BANNER ===== */
+.hero-text-shadow {
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+}
+
+/* ===== LIGHTBOX ===== */
+.lightbox-overlay {
+    backdrop-filter: blur(4px);
+}
+
+/* ===== FLOATING BUTTONS ===== */
+.float-btn {
+    animation: pulse-gold 3s infinite;
+}
+
+/* ===== SCROLLED HEADER ===== */
+header.scrolled {
+    box-shadow: 0 4px 30px rgba(44, 44, 44, 0.08);
+}
+
+/* ===== IMAGE ASPECT RATIO ===== */
+.aspect-3-4 {
+    aspect-ratio: 3 / 4;
+}
+
+/* ===== LINE CLAMP ===== */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ===== PROSE (product description) ===== */
+.prose p {
+    margin-bottom: 0.75rem;
+    line-height: 1.75;
+}
+
+.prose strong {
+    color: var(--charcoal);
+    font-weight: 700;
+}
+
+/* ===== MOBILE OPTIMIZATIONS ===== */
+@media (max-width: 640px) {
+    .product-card:hover {
+        transform: none;
+    }
+    
+    .price-main {
+        font-size: 1.4rem;
+    }
+}
+
+/* ===== SELECTION STYLING ===== */
+::selection {
+    background: rgba(201, 168, 76, 0.25);
+    color: var(--charcoal);
+}
+
+/* ===== TRANSITION UTILITIES ===== */
+.transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== ORDER SUCCESS GLOW ===== */
+.order-success {
+    animation: pulse-gold 0.5s ease 3;
+}
+
+/* ===== GOLD DIVIDER ===== */
+.gold-divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto;
+}

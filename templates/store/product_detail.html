@@ -1,0 +1,510 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load store_filters %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block og_type %}product{% endblock %}
+{% block og_title %}{{ product.name }} | Shop Hồng Loan{% endblock %}
+{% block og_description %}{{ page_description }}{% endblock %}
+{% block og_image %}{{ og_image_url }}{% endblock %}
+
+{% block extra_head %}
+<meta name="description" content="{{ page_description }}">
+<!-- Product Schema.org Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "{{ product.name }}",
+  "description": "{{ page_description }}",
+  "brand": {"@type": "Brand", "name": "Shop Hồng Loan"},
+  "offers": {
+    "@type": "Offer",
+    "price": "{{ product.display_price }}",
+    "priceCurrency": "VND",
+    "availability": "https://schema.org/InStock"
+  }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div x-data="productDetail()" class="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-12 py-8 md:py-12">
+    
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-charcoal/50 mb-6 flex items-center gap-2">
+        <a href="/" class="hover:text-gold transition-colors">Trang chủ</a>
+        <span>›</span>
+        <a href="/bo-suu-tap/" class="hover:text-gold transition-colors">Bộ sưu tập</a>
+        {% if product.category %}
+        <span>›</span>
+        <a href="/bo-suu-tap/?category={{ product.category.slug }}" class="hover:text-gold transition-colors">{{ product.category.name }}</a>
+        {% endif %}
+        <span>›</span>
+        <span class="text-charcoal font-medium">{{ product.name }}</span>
+    </nav>
+    
+    <!-- Product Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+        
+        <!-- ===== LEFT: PRODUCT IMAGES ===== -->
+        <div>
+            <!-- Main Image with Lightbox -->
+            <div class="relative rounded-2xl overflow-hidden shadow-lg cursor-zoom-in mb-3" style="aspect-ratio: 3/4;"
+                 @click="openLightbox(currentImageIndex)">
+                {% if images %}
+                    {% for img in images %}
+                    <img x-show="currentImageIndex === {{ forloop.counter0 }}"
+                         src="{{ img.image.url }}"
+                         alt="{{ img.alt_text|default:product.name }}"
+                         class="w-full h-full object-cover"
+                         id="main-image-{{ forloop.counter0 }}">
+                    {% endfor %}
+                {% else %}
+                <div class="w-full h-full bg-gradient-to-br from-cream-dark to-cream flex flex-col items-center justify-center text-charcoal/30">
+                    <span class="text-8xl mb-4">👗</span>
+                    <span>Chưa có ảnh</span>
+                </div>
+                {% endif %}
+                
+                <!-- Zoom Icon -->
+                <div class="absolute top-3 right-3 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow">
+                    <svg class="w-4 h-4 text-charcoal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+                    </svg>
+                </div>
+                
+                <!-- Image Counter -->
+                {% if images.count > 1 %}
+                <div class="absolute bottom-3 left-3 bg-charcoal/70 text-cream text-xs px-3 py-1 rounded-full">
+                    <span x-text="currentImageIndex + 1"></span>/{{ images.count }}
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Thumbnail Strip -->
+            {% if images.count > 1 %}
+            <div class="flex gap-2 overflow-x-auto pb-2">
+                {% for img in images %}
+                <button @click="currentImageIndex = {{ forloop.counter0 }}"
+                        :class="currentImageIndex === {{ forloop.counter0 }} ? 'ring-2 ring-gold ring-offset-1' : 'ring-1 ring-charcoal/10 hover:ring-gold/50'"
+                        class="flex-shrink-0 w-16 h-20 md:w-20 md:h-28 rounded-lg overflow-hidden transition-all">
+                    <img src="{{ img.image.url }}" alt="{{ img.alt_text|default:product.name }}" class="w-full h-full object-cover">
+                </button>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <!-- Share & Contact Buttons -->
+            <div class="mt-4 flex flex-wrap items-center gap-2.5">
+                <span class="text-xs text-charcoal/50 font-medium">Chia sẻ:</span>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" 
+                   target="_blank"
+                   class="flex items-center gap-1.5 bg-[#1877F2] text-white px-3.5 py-1.5 rounded-full text-xs font-semibold hover:bg-[#1666D2] transition-colors shadow-sm">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    Facebook
+                </a>
+                <button type="button" @click="chatZaloProduct()"
+                        class="flex items-center gap-1.5 bg-[#0068FF] text-white px-3.5 py-1.5 rounded-full text-xs font-semibold hover:bg-blue-600 transition-colors shadow-sm">
+                    💬 Nhắn Zalo
+                </button>
+                <button type="button" @click="copyProductLink()"
+                        class="flex items-center gap-1.5 bg-cream-dark text-charcoal px-3.5 py-1.5 rounded-full text-xs font-medium hover:bg-charcoal hover:text-cream transition-colors">
+                    🔗 Sao chép link
+                </button>
+            </div>
+        </div>
+        
+        
+        <!-- ===== RIGHT: PRODUCT INFO & ORDER ===== -->
+        <div>
+            <!-- Category Badge -->
+            {% if product.category %}
+            <a href="/bo-suu-tap/?category={{ product.category.slug }}" 
+               class="inline-block text-gold border border-gold text-xs font-semibold px-3 py-1 rounded-full mb-3 hover:bg-gold hover:text-white transition-colors tracking-wide uppercase">
+                {{ product.category.icon }} {{ product.category.name }}
+            </a>
+            {% endif %}
+            
+            <!-- Product Name -->
+            <h1 class="font-serif text-2xl md:text-3xl lg:text-4xl font-bold text-charcoal leading-tight mb-4">
+                {{ product.name }}
+            </h1>
+            
+            <!-- Fabric Badge -->
+            <div class="inline-flex items-center gap-2 bg-cream-dark text-charcoal px-4 py-2 rounded-full text-sm font-medium mb-6">
+                🧵 Chất liệu: <span class="font-bold text-gold">{{ product.get_fabric_display_name }}</span>
+            </div>
+            
+            <!-- Price Block -->
+            <div class="bg-cream-dark rounded-2xl p-5 mb-6">
+                {% if product.sale_price %}
+                <div class="flex items-center gap-4 mb-2">
+                    <span class="text-3xl md:text-4xl font-bold text-rose-boutique">
+                        {{ product.sale_price|vnd }}
+                    </span>
+                    <div>
+                        <span class="bg-rose-boutique text-white text-sm font-bold px-3 py-1 rounded-full">
+                            Giảm {{ product.discount_percent }}%
+                        </span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-charcoal/40 text-base line-through">{{ product.price|vnd }}</span>
+                    <span class="text-charcoal/60 text-sm">Giá gốc</span>
+                </div>
+                {% else %}
+                <span class="text-3xl md:text-4xl font-bold text-charcoal">{{ product.price|vnd }}</span>
+                {% endif %}
+                <p class="text-sm text-charcoal/50 mt-2">✓ Miễn phí giao hàng đơn từ 500k · ✓ Đổi trả 7 ngày</p>
+            </div>
+            
+            <!-- Size Selection -->
+            {% if sizes %}
+            <div class="mb-6">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="font-semibold text-charcoal">Chọn size:</h3>
+                    <button @click="showSizeGuide = !showSizeGuide" class="text-gold text-sm hover:underline">📐 Hướng dẫn chọn size</button>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                    {% for size in sizes %}
+                    <button @click="selectedSize = '{{ size.size }}'"
+                            :class="selectedSize === '{{ size.size }}' ? 'bg-charcoal text-cream border-charcoal' : 'bg-white text-charcoal border-charcoal/20 hover:border-gold hover:text-gold'"
+                            class="size-btn px-4 py-2.5 rounded-xl border-2 font-semibold text-sm transition-all min-w-[70px] text-center">
+                        <span class="block font-bold">{{ size.size }}</span>
+                        {% if size.weight_hint %}
+                        <span class="block text-xs opacity-70 mt-0.5">{{ size.weight_hint }}</span>
+                        {% endif %}
+                    </button>
+                    {% endfor %}
+                </div>
+                
+                <!-- Size Guide Popup -->
+                <div x-show="showSizeGuide" x-transition class="mt-3 bg-white border border-charcoal/10 rounded-xl p-4 text-sm">
+                    <h4 class="font-semibold mb-2">📏 Bảng hướng dẫn chọn size:</h4>
+                    <table class="w-full text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-cream-dark">
+                                <th class="border border-charcoal/10 px-3 py-2 text-left">Size</th>
+                                <th class="border border-charcoal/10 px-3 py-2 text-left">Cân nặng</th>
+                                <th class="border border-charcoal/10 px-3 py-2 text-left">Chiều cao</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="border border-charcoal/10 px-3 py-2 font-semibold">M</td><td class="border border-charcoal/10 px-3 py-2">45-50 kg</td><td class="border border-charcoal/10 px-3 py-2">150-158 cm</td></tr>
+                            <tr class="bg-cream/50"><td class="border border-charcoal/10 px-3 py-2 font-semibold">L</td><td class="border border-charcoal/10 px-3 py-2">50-55 kg</td><td class="border border-charcoal/10 px-3 py-2">155-162 cm</td></tr>
+                            <tr><td class="border border-charcoal/10 px-3 py-2 font-semibold">XL</td><td class="border border-charcoal/10 px-3 py-2">55-62 kg</td><td class="border border-charcoal/10 px-3 py-2">158-165 cm</td></tr>
+                            <tr class="bg-cream/50"><td class="border border-charcoal/10 px-3 py-2 font-semibold">2XL</td><td class="border border-charcoal/10 px-3 py-2">62-70 kg</td><td class="border border-charcoal/10 px-3 py-2">160-168 cm</td></tr>
+                            <tr><td class="border border-charcoal/10 px-3 py-2 font-semibold">3XL</td><td class="border border-charcoal/10 px-3 py-2">70-80 kg</td><td class="border border-charcoal/10 px-3 py-2">162-170 cm</td></tr>
+                        </tbody>
+                    </table>
+                    <p class="text-charcoal/50 mt-2">* Nếu không chắc, hãy gọi Hotline để được tư vấn size phù hợp nhé!</p>
+                </div>
+            </div>
+            {% endif %}
+            
+            
+            <!-- ===== SUPER FAST ORDER BLOCK ===== -->
+            <div class="border-2 border-gold rounded-2xl p-5 mb-6">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="text-xl">⚡</span>
+                    <h3 class="font-bold text-charcoal text-lg">Đặt hàng nhanh</h3>
+                    <span class="text-xs bg-gold text-white px-2 py-0.5 rounded-full font-semibold">Giao hàng ngay hôm nay</span>
+                </div>
+                
+                <!-- Quick Order Form -->
+                <form @submit.prevent="submitOrder()" class="space-y-3">
+                    <div>
+                        <input type="text" x-model="orderForm.name" placeholder="Họ và tên *" required
+                               class="w-full border border-charcoal/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-all bg-white"
+                               autocomplete="name">
+                    </div>
+                    <div>
+                        <input type="tel" x-model="orderForm.phone" placeholder="Số điện thoại *" required
+                               class="w-full border border-charcoal/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-all bg-white"
+                               autocomplete="tel">
+                    </div>
+                    <div>
+                        <input type="text" x-model="orderForm.address" placeholder="Địa chỉ giao hàng *" required
+                               class="w-full border border-charcoal/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-all bg-white"
+                               autocomplete="street-address">
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <button type="submit" 
+                            :disabled="isSubmitting"
+                            class="w-full bg-rose-boutique hover:bg-rose-600 text-white font-bold py-4 rounded-xl text-base transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                        <span x-show="!isSubmitting">🛒 ĐẶT HÀNG NGAY</span>
+                        <span x-show="isSubmitting" class="flex items-center gap-2">
+                            <svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+                            Đang xử lý...
+                        </span>
+                    </button>
+                </form>
+                
+                <!-- Success Message -->
+                <div x-show="orderSuccess" x-transition class="mt-4 bg-green-50 border border-green-200 rounded-xl p-4 text-center">
+                    <div class="text-3xl mb-2">✅</div>
+                    <p class="font-bold text-green-800">Đặt hàng thành công!</p>
+                    <p class="text-green-600 text-sm mt-1" x-text="successMessage"></p>
+                </div>
+                
+                <!-- Error Message -->
+                <div x-show="orderError" x-transition class="mt-4 bg-red-50 border border-red-200 rounded-xl p-4 text-center">
+                    <p class="text-red-600 text-sm" x-text="errorMessage"></p>
+                </div>
+                
+                <!-- Or Zalo / Call Section -->
+                <div class="relative my-4">
+                    <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-charcoal/10"></div></div>
+                    <div class="relative flex justify-center text-xs text-charcoal/40"><span class="bg-white px-3 font-medium">hoặc liên hệ trực tiếp</span></div>
+                </div>
+                
+                <!-- Zalo Chat Button with product information -->
+                <button type="button" @click="chatZaloProduct()"
+                        class="w-full bg-[#0068FF] hover:bg-[#0055d4] text-white font-bold py-3.5 rounded-xl text-base text-center transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5 transform flex items-center justify-center gap-2 mb-2.5">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 48 48">
+                        <path d="M24 4C12.95 4 4 12.52 4 23.03c0 5.86 2.8 11.12 7.23 14.67-.32 2.37-1.32 5.84-2.73 7.85 2.92-.37 6.94-1.6 9.68-3.08 1.84.45 3.79.7 5.82.7 11.05 0 20-8.52 20-19.03C44 12.52 35.05 4 24 4z"/>
+                    </svg>
+                    <span>💬 NHẮN ZALO TƯ VẤN MẪU NÀY</span>
+                </button>
+
+                <!-- Hotline Call Button -->
+                <a href="tel:{{ shop_setting.clean_zalo_number|default:'0901234567' }}" 
+                   class="block w-full bg-gold hover:bg-gold-light text-white font-bold py-3.5 rounded-xl text-base text-center transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 transform">
+                    📞 GỌI ĐẶT HÀNG: {{ shop_setting.hotline|default:'0901 234 567' }}
+                </a>
+            </div>
+            
+            
+            <!-- Product Description -->
+            {% if product.description %}
+            <div class="mb-6">
+                <h3 class="font-semibold text-charcoal mb-3">Mô tả sản phẩm:</h3>
+                <div class="text-charcoal/70 text-sm leading-relaxed prose max-w-none">
+                    {{ product.description|linebreaks }}
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Guarantees -->
+            <div class="grid grid-cols-2 gap-3">
+                <div class="flex items-center gap-2 text-sm text-charcoal/70">
+                    <span class="text-gold text-base">✓</span> Vải cao cấp mềm mát
+                </div>
+                <div class="flex items-center gap-2 text-sm text-charcoal/70">
+                    <span class="text-gold text-base">✓</span> Đổi trả trong 7 ngày
+                </div>
+                <div class="flex items-center gap-2 text-sm text-charcoal/70">
+                    <span class="text-gold text-base">✓</span> Giao hàng nhanh
+                </div>
+                <div class="flex items-center gap-2 text-sm text-charcoal/70">
+                    <span class="text-gold text-base">✓</span> Tư vấn size miễn phí
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- ===== RELATED PRODUCTS ===== -->
+    {% if related_products %}
+    <div class="mt-20">
+        <div class="text-center mb-10">
+            <p class="text-gold font-medium tracking-[0.3em] uppercase text-xs mb-2">Có thể bạn thích</p>
+            <h2 class="font-serif text-2xl md:text-3xl font-bold text-charcoal">Sản Phẩm Liên Quan</h2>
+            <div class="w-16 h-0.5 bg-gold mx-auto mt-3"></div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {% for rp in related_products %}
+            <article class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                <a href="{{ rp.get_absolute_url }}" class="block relative overflow-hidden" style="aspect-ratio: 3/4;">
+                    {% if rp.main_image %}
+                    <img src="{{ rp.main_image.image.url }}" alt="{{ rp.name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+                    {% else %}
+                    <div class="w-full h-full bg-cream-dark flex items-center justify-center text-5xl">👗</div>
+                    {% endif %}
+                </a>
+                <div class="p-3">
+                    <a href="{{ rp.get_absolute_url }}"><h3 class="font-semibold text-sm hover:text-gold transition-colors line-clamp-2 mb-1">{{ rp.name }}</h3></a>
+                    <span class="text-rose-boutique font-bold">{{ rp.display_price|vnd }}</span>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    
+    
+    <!-- ===== LIGHTBOX ===== -->
+    <div x-show="lightboxOpen" x-transition:enter="transition-opacity duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+         class="fixed inset-0 bg-charcoal/95 z-50 flex items-center justify-center p-4"
+         @click.self="lightboxOpen = false" @keydown.escape.window="lightboxOpen = false">
+        
+        <button @click="lightboxOpen = false" class="absolute top-4 right-4 text-white/80 hover:text-white text-3xl w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors">×</button>
+        
+        <button @click="prevLightbox()" class="absolute left-4 text-white/80 hover:text-white text-4xl w-12 h-12 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors">‹</button>
+        <button @click="nextLightbox()" class="absolute right-4 text-white/80 hover:text-white text-4xl w-12 h-12 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors">›</button>
+        
+        {% for img in images %}
+        <img x-show="lightboxIndex === {{ forloop.counter0 }}" 
+             src="{{ img.image.url }}" 
+             alt="{{ img.alt_text|default:product.name }}"
+             class="max-w-full max-h-full object-contain rounded-xl shadow-2xl"
+             style="max-height: 90vh;">
+        {% endfor %}
+        
+        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/60 text-sm">
+            <span x-text="lightboxIndex + 1"></span> / {{ images.count }}
+        </div>
+    </div>
+
+    <!-- Toast Notification for Zalo Transfer -->
+    <div x-show="zaloNotification" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 translate-y-8 scale-95"
+         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+         x-transition:leave-end="opacity-0 translate-y-8 scale-95"
+         style="display: none;"
+         class="fixed bottom-28 left-1/2 -translate-x-1/2 z-50 bg-[#1E293B] text-white px-5 py-4 rounded-2xl shadow-2xl max-w-lg w-[92%] border-2 border-gold/70 flex items-start gap-3.5 backdrop-blur-md">
+        <div class="w-10 h-10 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center flex-shrink-0 text-xl font-bold">
+            💬
+        </div>
+        <div class="flex-1 text-sm">
+            <p class="font-bold text-gold-light text-base mb-1">Đang chuyển sang Zalo của Shop...</p>
+            <p class="text-white/90 text-xs leading-relaxed">
+                Đã tự động đính kèm thông tin: <strong>{{ product.name }}</strong> (Giá: {{ product.display_price|vnd }}<span x-text="selectedSize ? ' - Size ' + selectedSize : ''"></span>).
+            </p>
+            <p class="text-white/60 text-[11px] mt-1.5 italic">
+                * Nếu Zalo không tự hiện nội dung sẵn, bạn chỉ cần bấm <strong>"Dán" (Paste / Ctrl+V)</strong> vào ô chat nhé (thông tin đã được sao chép sẵn)!
+            </p>
+        </div>
+        <button @click="zaloNotification = false" class="text-white/50 hover:text-white p-1 text-lg leading-none">✕</button>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+function productDetail() {
+    return {
+        currentImageIndex: 0,
+        lightboxOpen: false,
+        lightboxIndex: 0,
+        showSizeGuide: false,
+        selectedSize: '',
+        isSubmitting: false,
+        orderSuccess: false,
+        orderError: false,
+        successMessage: '',
+        errorMessage: '',
+        zaloNotification: false,
+        orderForm: {
+            name: '',
+            phone: '',
+            address: '',
+        },
+        
+        openLightbox(index) {
+            this.lightboxIndex = index;
+            this.lightboxOpen = true;
+        },
+        
+        nextLightbox() {
+            this.lightboxIndex = (this.lightboxIndex + 1) % {{ images.count|default:1 }};
+        },
+        
+        prevLightbox() {
+            this.lightboxIndex = (this.lightboxIndex - 1 + {{ images.count|default:1 }}) % {{ images.count|default:1 }};
+        },
+
+        copyProductLink() {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(window.location.href);
+            }
+            alert('Đã sao chép link sản phẩm: ' + window.location.href);
+        },
+
+        chatZaloProduct() {
+            const shopName = "{{ shop_setting.shop_name|default:'Shop Hồng Loan'|escapejs }}";
+            const productName = "{{ product.name|escapejs }}";
+            const productPrice = "{{ product.display_price|vnd|escapejs }}";
+            const fabric = "{{ product.get_fabric_display_name|escapejs }}";
+            const currentUrl = window.location.href;
+            const sizeInfo = this.selectedSize ? `Size ${this.selectedSize}` : "Chưa chọn size (Nhờ Shop tư vấn giúp)";
+            const zaloNumber = "{{ shop_setting.clean_zalo_number|default:'0901234567' }}";
+
+            // Xây dựng nội dung tin nhắn chi tiết sản phẩm
+            const message = `Chào ${shopName}, tôi muốn tư vấn về sản phẩm này:\n` +
+                            `• Tên mẫu: ${productName}\n` +
+                            `• Giá bán: ${productPrice}\n` +
+                            `• Chất liệu: ${fabric}\n` +
+                            `• Size: ${sizeInfo}\n` +
+                            `• Link xem chi tiết: ${currentUrl}`;
+
+            // Tự động sao chép vào bộ nhớ tạm (clipboard) để đảm bảo không bị mất
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(message).catch(function(){});
+            }
+
+            // Mở Zalo đến số của shop kèm theo nội dung văn bản mã hóa
+            const zaloUrl = `https://zalo.me/${zaloNumber}?text=${encodeURIComponent(message)}`;
+            window.open(zaloUrl, '_blank');
+
+            // Hiển thị thông báo hướng dẫn khách hàng
+            this.zaloNotification = true;
+            setTimeout(() => { this.zaloNotification = false; }, 8000);
+        },
+        
+        async submitOrder() {
+            if (!this.orderForm.name || !this.orderForm.phone || !this.orderForm.address) {
+                this.orderError = true;
+                this.errorMessage = 'Vui lòng điền đầy đủ thông tin họ tên, số điện thoại và địa chỉ!';
+                setTimeout(() => this.orderError = false, 4000);
+                return;
+            }
+            
+            this.isSubmitting = true;
+            this.orderError = false;
+            
+            try {
+                const csrfToken = document.cookie.match(/csrftoken=([^;]+)/)?.[1] || '';
+                const response = await fetch('/api/dat-hang/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken,
+                    },
+                    body: JSON.stringify({
+                        product_id: '{{ product.pk }}',
+                        size: this.selectedSize,
+                        name: this.orderForm.name,
+                        phone: this.orderForm.phone,
+                        address: this.orderForm.address,
+                    })
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    this.orderSuccess = true;
+                    this.successMessage = data.message;
+                    this.orderForm = { name: '', phone: '', address: '' };
+                    this.selectedSize = '';
+                } else {
+                    throw new Error(data.message);
+                }
+            } catch (error) {
+                this.orderError = true;
+                this.errorMessage = error.message || 'Có lỗi xảy ra. Vui lòng gọi hotline: {{ shop_setting.hotline|default:"0901 234 567"|escapejs }}';
+            } finally {
+                this.isSubmitting = false;
+            }
+        }
+    }
+}
+</script>
+{% endblock %}
